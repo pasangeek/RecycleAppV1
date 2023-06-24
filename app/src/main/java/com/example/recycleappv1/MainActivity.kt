@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         FirebaseFirestore.getInstance().collection("Municipalities")
             .add(user).addOnSuccessListener { documentReference -> Log.d("TAG","document added"+documentReference.id) }
             .addOnFailureListener { e -> Log.w("TAG","Error adding document",e) }
-
+////
 
 */
 
