@@ -5,8 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recycleappv1.model.data.RecycleItemsData
 import com.example.recycleappv1.model.repository.RecycleItemsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel (val repository: RecycleItemsRepository): ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    val repository: RecycleItemsRepository
+    ): ViewModel() {
 
     private val _recycleItems = MutableLiveData<List<RecycleItemsData>>()
     val recycleItems: LiveData<List<RecycleItemsData>>

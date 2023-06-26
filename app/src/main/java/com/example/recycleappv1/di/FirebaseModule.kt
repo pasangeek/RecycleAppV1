@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object FirebaseService {
+object FirebaseModule {
 @Provides
 @Singleton
 fun provideFireStoreInstant():FirebaseFirestore{
