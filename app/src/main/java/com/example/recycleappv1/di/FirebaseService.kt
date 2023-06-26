@@ -1,5 +1,18 @@
 package com.example.recycleappv1.di
 
-object FirebaseService {
+import com.google.firebase.firestore.FirebaseFirestore
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
+@Module
+object FirebaseService {
+@Provides
+@Singleton
+fun provideFireStoreInstant():FirebaseFirestore{
+    return  FirebaseFirestore.getInstance()
+}
 }
