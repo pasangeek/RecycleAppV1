@@ -1,6 +1,8 @@
 package com.example.recycleappv1.ui.home
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +40,11 @@ val viewModel : HomeViewModel by viewModels()
         super.onViewCreated(view, savedInstanceState)
 viewModel.getRecycleItemsdata()
         viewModel.recycleItems.observe(viewLifecycleOwner){
+
+            it.forEach{
+
+                Log.e(TAG,it.toString())
+            }
 
         }
 
