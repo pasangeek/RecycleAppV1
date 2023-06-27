@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.recycleappv1.databinding.FragmentHomeBinding
+import com.example.recycleappv1.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,17 +39,28 @@ val viewModel : HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-viewModel.getRecycleItemsdata()
-        viewModel.recycleItems.observe(viewLifecycleOwner){
+        viewModel.getRecycleItemsdata()
+        viewModel.recycleItems.observe(viewLifecycleOwner) { state ->
 
-            it.forEach{
+            when (state) {
+                is UiState.Loading -> {
+                    Log.e(TAG, "Loading")
+                }
 
-                Log.e(TAG,it.toString())
+                is UiState.Failure -> {
+                    Log.e(TAG, state.error.toString())
+                }
+
+                is UiState.Success -> {
+                    state.data.forEach {
+                        Log.e(TAG, it.toString())
+                    }
+                }
             }
 
         }
 
-        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
