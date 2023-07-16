@@ -6,22 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.recycleappv1.databinding.FragmentHomeBinding
-import com.example.recycleappv1.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+
+    private lateinit var _binding: FragmentHomeBinding
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+
 val viewModel : HomeViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,37 +30,20 @@ val viewModel : HomeViewModel by viewModels()
         // ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
+        val root: View = _binding.root
+_binding.lifecycleOwner = this
+        _binding.homeVM = viewModel
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getRecycleItemsdata()
-        viewModel.recycleItems.observe(viewLifecycleOwner) { state ->
 
-            when (state) {
-                is UiState.Loading -> {
-                    Log.e(TAG, "Loading")
-                }
 
-                is UiState.Failure -> {
-                    Log.e(TAG, state.error.toString())
-                }
-
-                is UiState.Success -> {
-                    state.data.forEach {
-                        Log.e(TAG, it.toString())
-                    }
-                }
-            }
-
-        }
 
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+
     }
 }
