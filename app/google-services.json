@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "1054220998827",
-    "project_id": "recycleappv1",
-    "storage_bucket": "recycleappv1.appspot.com"
+    "project_number": "90802964413",
+    "project_id": "recycleappv1-8e672",
+    "storage_bucket": "recycleappv1-8e672.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1054220998827:android:945a813e99cd058f12bfee",
+        "mobilesdk_app_id": "1:90802964413:android:6f59826035ed0bdae034d4",
         "android_client_info": {
           "package_name": "com.example.recycleappv1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1054220998827-9ul6fc220ieop1uqopof0gp3ivtskh3h.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.recycleappv1",
-            "certificate_hash": "1899882e6a208c9c8476684bff1769afa25a4cc9"
-          }
-        },
-        {
-          "client_id": "1054220998827-mao4rh294mglbmcdbti99jdpab9ii5qh.apps.googleusercontent.com",
+          "client_id": "90802964413-1h5skcdfg12vpgef596osefhvtdtk5hj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDvgEIkhgqx1aFnBTj9ZhxbE5OsCzALvLE"
+          "current_key": "AIzaSyDFjz2XEeave7NF--tc744SfLhkHJnEzys"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1054220998827-mao4rh294mglbmcdbti99jdpab9ii5qh.apps.googleusercontent.com",
+              "client_id": "90802964413-1h5skcdfg12vpgef596osefhvtdtk5hj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
