@@ -7,8 +7,9 @@ import java.util.Date
 
 @Parcelize
 data class RecycleItemsData(
-    var recycleItem : String,
+    var documentId: String? = "",
+    var description: String?  = "",
+    var wasteType: String?  = "",
     @ServerTimestamp
-    var date : Date,
-
+    var date: Date? = null,
 ): Parcelable
