@@ -1,4 +1,4 @@
-package com.example.recycleappv1.model.data
+package com.example.recycleappv1.data.model
 
 import android.os.Parcelable
 import com.google.firebase.firestore.ServerTimestamp
