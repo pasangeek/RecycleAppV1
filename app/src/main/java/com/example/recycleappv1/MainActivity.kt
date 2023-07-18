@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
 
       /*  val user : MutableMap<String,Any> = HashMap()
-        user ["first"] = "pasan"
+        user ["first"] = "test1"
 
         FirebaseFirestore.getInstance().collection("Municipalities")
             .add(user).addOnSuccessListener { documentReference -> Log.d("TAG","document added"+documentReference.id) }
