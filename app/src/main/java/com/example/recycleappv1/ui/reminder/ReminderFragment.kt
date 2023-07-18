@@ -1,4 +1,4 @@
-package com.example.recycleappv1.ui.slideshow
+package com.example.recycleappv1.ui.reminder
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.recycleappv1.databinding.FragmentSlideshowBinding
+
+import com.example.recycleappv1.databinding.FragmentReminderBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SlideshowFragment : Fragment() {
+class ReminderFragment : Fragment() {
 
-    private var _binding: FragmentSlideshowBinding? = null
+    private var _binding: FragmentReminderBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,14 +25,16 @@ class SlideshowFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val slideshowViewModel =
-            ViewModelProvider(this).get(SlideshowViewModel::class.java)
 
-        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
+
+        val reminderViewModel =
+            ViewModelProvider(this).get(ReminderViewModel::class.java)
+
+        _binding = FragmentReminderBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSlideshow
-        slideshowViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textGallery
+        reminderViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
