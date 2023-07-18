@@ -1,4 +1,4 @@
-package com.example.recycleappv1.ui.slideshow
+package com.example.recycleappv1.ui.setting
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,12 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SlideshowViewModel  @Inject constructor(
+class SettingViewModel  @Inject constructor(
 
 ): ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is slideshow Fragment"
+        value = "This is setting Fragment"
     }
     val text: LiveData<String> = _text
 }

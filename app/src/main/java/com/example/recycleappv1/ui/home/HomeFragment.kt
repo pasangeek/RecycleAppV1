@@ -70,7 +70,7 @@ _binding.recyclerView.apply {
                     _binding.progressBar.gone()
                     Snackbar.make(_binding.root, it.error, Snackbar.LENGTH_LONG).show()
                 }
-                else -> {}
+
             }
 
     }
