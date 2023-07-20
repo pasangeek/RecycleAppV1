@@ -14,9 +14,7 @@ fun Date.convertToCalendar(): Calendar {
     return calendar
 }
 
-fun String.doSomething() : String{
-    return this.plus(" world")
-}
+
 
 fun View.show() {
     visibility = View.VISIBLE
