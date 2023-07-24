@@ -3,6 +3,7 @@ package com.example.recycleappv1
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,9 +11,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.recycleappv1.databinding.ActivityMainBinding
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalAnimationApi
+@ExperimentalPagerApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -21,19 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-      /*  val user : MutableMap<String,Any> = HashMap()
-        user ["first"] = "test1"
-
-        FirebaseFirestore.getInstance().collection("Municipalities")
-            .add(user).addOnSuccessListener { documentReference -> Log.d("TAG","document added"+documentReference.id) }
-            .addOnFailureListener { e -> Log.w("TAG","Error adding document",e) }
-////
-
-*/
-
-
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
