@@ -22,4 +22,5 @@
         android:name="com.example.recycleappv1.ui.setting.SettingFragment"
         android:label="@string/menu_setting"
         tools:layout="@layout/fragment_setting" />
+
 </navigation>

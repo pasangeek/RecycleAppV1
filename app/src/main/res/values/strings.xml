@@ -10,4 +10,6 @@
     <string name="menu_home">Home</string>
     <string name="menu_reminder">Reminder</string>
     <string name="menu_setting">Setting</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="splash_fragment">Hello Splash fragment</string>
 </resources>
