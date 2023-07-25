@@ -21,7 +21,13 @@ class ViewPagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_pager, container, false)
+     val view = inflater.inflate(R.layout.fragment_view_pager, container, false)
+
+        val fragmentList = arrayListOf<Fragment>(
+
+
+        )
+        return view
     }
 
 
