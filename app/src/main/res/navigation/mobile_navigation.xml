@@ -23,4 +23,32 @@
         android:label="@string/menu_setting"
         tools:layout="@layout/fragment_setting" />
 
+    <fragment
+        android:id="@+id/firstScreen"
+        android:name="com.example.recycleappv1.ui.onboarding.screens.FirstScreen"
+        android:label="fragment_first_screen"
+        tools:layout="@layout/fragment_first_screen" >
+        <action
+            android:id="@+id/action_firstScreen_to_secondScreen3"
+            app:destination="@id/secondScreen" />
+        <action
+            android:id="@+id/action_firstScreen_to_thirdScreen2"
+            app:destination="@id/thirdScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondScreen"
+        android:name="com.example.recycleappv1.ui.onboarding.screens.SecondScreen"
+        android:label="fragment_second_screen"
+        tools:layout="@layout/fragment_second_screen" />
+    <fragment
+        android:id="@+id/thirdScreen"
+        android:name="com.example.recycleappv1.ui.onboarding.screens.ThirdScreen"
+        android:label="fragment_third_screen"
+        tools:layout="@layout/fragment_third_screen" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.recycleappv1.ui.onboarding.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" />
+
 </navigation>

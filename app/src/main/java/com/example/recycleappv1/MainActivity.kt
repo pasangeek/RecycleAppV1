@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        setContentView(R.layout.fragment_splash)
         lifecycleScope.launch {
             delay(SPLASH_DISPLAY_LENGTH)
             navigateToMainContent()
