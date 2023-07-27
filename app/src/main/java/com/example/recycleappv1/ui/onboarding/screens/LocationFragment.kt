@@ -1,18 +1,20 @@
 package com.example.recycleappv1.ui.onboarding.screens
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.recycleappv1.MainActivity
 import com.example.recycleappv1.R
 import com.example.recycleappv1.databinding.FragmentThirdScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ThirdScreen : Fragment() {
+class LocationFragment : Fragment() {
 private lateinit var _binding : FragmentThirdScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +29,30 @@ private lateinit var _binding : FragmentThirdScreenBinding
       _binding = FragmentThirdScreenBinding.inflate(inflater, container, false)
 
         val root: View = _binding.root
-        return root
-_binding.finish.setOnClickListener{
-    //findNavController().navigate(R.id.)
+
+
+_binding.finish.setOnClickListener {
     onBoardingFinished()
 }
+        return root
+
+    //findNavController().navigate(R.id.)
+   // findNavController().navigate(R.id.app_bar_main)
+
+
     }
+
+
     private fun onBoardingFinished(){
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putBoolean("Finished", true)
         editor.apply()
+
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+
     }
 
 }
