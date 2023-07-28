@@ -33,6 +33,9 @@ private lateinit var _binding : FragmentThirdScreenBinding
 
 _binding.finish.setOnClickListener {
     onBoardingFinished()
+    val intent = Intent(requireContext(), MainActivity::class.java)
+    startActivity(intent)
+    requireActivity().finish()
 }
         return root
 
@@ -49,9 +52,7 @@ _binding.finish.setOnClickListener {
         editor.putBoolean("Finished", true)
         editor.apply()
 
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish()
+
 
     }
 
