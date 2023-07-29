@@ -1,5 +1,6 @@
 package com.example.recycleappv1.ui.setting
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,32 +15,36 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SettingFragment : Fragment() {
 
-    private var _binding: FragmentSettingBinding? = null
+    private lateinit var _binding:FragmentSettingBinding
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val settingViewModel =
-            ViewModelProvider(this).get(SettingViewModel::class.java)
+
 
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val root: View = _binding.root
 
-        val textView: TextView = binding.textSlideshow
-        settingViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+      _binding.clear.setOnClickListener{
+
+          deleteDataFromSharedPreferences(requireContext())
+
+      }
+
+
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    fun deleteDataFromSharedPreferences(context: Context) {
+        val sharedPreferences = context.getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove("Finished")
+        editor.apply()
     }
 }
