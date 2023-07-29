@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_splash)
+        //supportActionBar?.hide()
         lifecycleScope.launch {
             delay(SPLASH_DISPLAY_LENGTH)
 
