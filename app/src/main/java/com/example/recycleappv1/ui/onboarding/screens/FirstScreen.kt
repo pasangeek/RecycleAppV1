@@ -19,6 +19,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.recycleappv1.R
 import com.example.recycleappv1.databinding.FragmentFirstScreenBinding
+
+
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
