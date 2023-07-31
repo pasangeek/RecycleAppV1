@@ -3,10 +3,10 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">A Guide To Garbage Disposal In Japan</string>
-    <string name="nav_header_subtitle">Waste Manager </string>
+    <string name="nav_header_subtitle">Nihon Waste Wise </string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
+    <color name="card_background_color">#FFC107</color>
     <string name="menu_home">Home</string>
     <string name="menu_reminder">Reminder</string>
     <string name="menu_setting">Setting</string>

@@ -81,7 +81,7 @@ _binding.next.setOnClickListener{
                         NewLocationData()
                     }else{
                         Log.d("Debug:" ,"Your Location:"+ location.longitude)
-                        _binding.address.text = "You Current Location is : Long: "+ location.longitude + " , Lat: " + location.latitude + "\n" + getCityName(location.latitude,location.longitude)
+                        _binding.address.text = "You Current Location is : Long: " + getCityName(location.latitude,location.longitude)
                     }
                 }
             }else{
@@ -95,7 +95,7 @@ _binding.next.setOnClickListener{
         override fun onLocationResult(locationResult: LocationResult) {
             val lastLocation: Location = locationResult.lastLocation
             Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
-            _binding.address.text = "You Last Location is : Long: "+ lastLocation.longitude + " , Lat: " + lastLocation.latitude + "\n" + getCityName(lastLocation.latitude,lastLocation.longitude)
+          //  _binding.address.text = "You Last Location is : Long: "+ lastLocation.longitude + " , Lat: " + lastLocation.latitude + "\n" + getCityName(lastLocation.latitude,lastLocation.longitude)
         }
     }
     fun NewLocationData(){
