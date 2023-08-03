@@ -3,9 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/recycle"
+    android:background="@drawable/background"
+    tools:context=".ui.wastecatalog.WasteCatalog">
 
-    tools:context=".ui.onboarding.splash.SplashScreen">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hello" />
 
 </FrameLayout>

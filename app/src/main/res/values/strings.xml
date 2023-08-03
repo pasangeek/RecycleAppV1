@@ -18,4 +18,10 @@
     <string name="Recycle" />
     <string name="Notification" />
     <string name="Location" />
+    <string name="combustibles">Combustibles</string>
+    <string name="combustables">Most household garbage, including kitchen waste and paper scraps, is classified as burnable garbage.</string>
+    <string name="friday_august_09">Friday August 09</string>
+    <string name="monthly">Monthly</string>
+    <string name="this_week">This Week</string>
+    <string name="WasteGuidelines">Waste Guidelines</string>
 </resources>
