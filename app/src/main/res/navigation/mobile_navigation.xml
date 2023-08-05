@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/nav_wasteCatalog"
         android:name="com.example.recycleappv1.ui.wastecatalog.WasteCatalog"
-        android:label="fragment_waste_catalog"
+        android:label="@string/WasteGuidelines"
         tools:layout="@layout/fragment_waste_catalog" />
     <fragment
         android:id="@+id/nav_setting"

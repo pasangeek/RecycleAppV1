@@ -14,7 +14,7 @@
             android:title="@string/menu_reminder" />
         <item
             android:id="@+id/nav_wasteCatalog"
-            android:icon="@drawable/setting"
+            android:icon="@drawable/recycle"
             android:title="@string/WasteGuidelines" />
         <item
             android:id="@+id/nav_setting"
