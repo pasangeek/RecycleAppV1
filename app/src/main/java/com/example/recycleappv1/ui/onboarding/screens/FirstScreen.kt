@@ -34,8 +34,6 @@ import java.util.Locale
 
 @AndroidEntryPoint
 class FirstScreen : Fragment() {
-    private val PREFS_NAME = "locationShared"
-   // val sharedPref: SharedPreferences =requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
@@ -60,14 +58,12 @@ private val locationViewModel: LocationViewModel by viewModels()
 _binding.lifecycleOwner = this
         _binding.vm = locationViewModel
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        // mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Activity())
-        //val viewPager =  activity?.findViewById<ViewPager2>(R.id.viewPager)
+
         getLastLocation()
         Log.d("Debug:", checkLocationPermission().toString())
           Log.d("Debug:", isLocationEnabled(requireContext()).toString())
         requestLocationPermission()
         _binding.button.setOnClickListener {
-            //saveLocation(city = "c")
 
            // Log.d("Debug:", checkLocationPermission().toString())
          //   Log.d("Debug:", isLocationEnabled(requireContext()).toString())
@@ -77,7 +73,7 @@ _binding.lifecycleOwner = this
 
 
         _binding.next.setOnClickListener {
-            //viewPager?.currentItem = 1
+
 
 
             navigateToThirdFragment()
@@ -126,7 +122,7 @@ _binding.lifecycleOwner = this
         }
         val locationData = LocationData( cityName)
 
-        _binding.address.text = "You Current Location is : Long: " + locationData.city
+        _binding.address.text =  locationData.city
         Log.d("Debug:", "Your City: " + cityName)
 
     }

@@ -7,15 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recycleappv1.MainActivity
 import com.example.recycleappv1.R
 import com.example.recycleappv1.databinding.FragmentThirdScreenBinding
+import com.example.recycleappv1.ui.onboarding.location.LocationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LocationFragment : Fragment() {
 private lateinit var _binding : FragmentThirdScreenBinding
+    private val locationViewModel: LocationViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,7 +30,8 @@ private lateinit var _binding : FragmentThirdScreenBinding
     ): View? {
         // Inflate the layout for this fragment
       _binding = FragmentThirdScreenBinding.inflate(inflater, container, false)
-
+        _binding.lifecycleOwner = this
+        _binding.vm = locationViewModel
         val root: View = _binding.root
 
 
@@ -44,13 +48,7 @@ _binding.finish.setOnClickListener {
 
 
     }
-private fun LocationSaveToSharedPreference(){
 
-    val sharedPref = requireActivity().getSharedPreferences("Location", Context.MODE_PRIVATE)
-    val editor = sharedPref.edit()
-    editor.putBoolean("Finished", true)
-    editor.apply()
-}
 
     private fun onBoardingFinished(){
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)

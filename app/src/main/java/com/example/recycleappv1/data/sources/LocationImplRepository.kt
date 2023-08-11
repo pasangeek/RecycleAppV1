@@ -3,7 +3,6 @@ package com.example.recycleappv1.data.sources
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -13,12 +12,12 @@ import kotlinx.coroutines.flow.map
 
 const val DataStore_Name = "LOCATION_DATA"
 val Context.datastore : DataStore<Preferences> by  preferencesDataStore(name = DataStore_Name)
-class ImplRepository (private  val context: Context):Abstract{
+class ImplRepository (private  val context: Context):LocationAbstract{
 
     companion object{
 
-        val LAT= doublePreferencesKey("LATITUTE")
-        val LONG = doublePreferencesKey("LONGITUTE")
+        //val LAT= doublePreferencesKey("LATITUTE")
+     //   val LONG = doublePreferencesKey("LONGITUTE")
         val CITY = stringPreferencesKey("municipal_city")
     }
 

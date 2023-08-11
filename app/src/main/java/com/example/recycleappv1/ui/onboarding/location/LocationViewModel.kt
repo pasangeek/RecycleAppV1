@@ -17,7 +17,7 @@ class LocationViewModel @Inject constructor(private val implRepository: ImplRepo
 
     var lat : MutableLiveData<String> = MutableLiveData("")
     var long : MutableLiveData<String> = MutableLiveData("")
-    var city : MutableLiveData<String> = MutableLiveData("")
+    var city_ : MutableLiveData<String> = MutableLiveData("")
     var location_data : MutableLiveData<LocationData> = MutableLiveData()
 
     fun saveData(){
@@ -27,7 +27,7 @@ viewModelScope.launch (Dispatchers.IO){
         LocationData(
            // lat = lat.toString(),
            // long = long.value.toDouble(),
-            city = city.value!!
+            city = city_.value!!
         )
 
     )
@@ -36,7 +36,7 @@ viewModelScope.launch (Dispatchers.IO){
     }
     fun  retrieveData(){
         viewModelScope.launch (Dispatchers.IO){
-implRepository.getLocation().collect(){
+implRepository.getLocation().collect {
 
     location_data.postValue(it)
 }
