@@ -28,7 +28,7 @@ class RecyclerItemAdapter (private val data: List<RecycleItemsData>) :
 
         fun bind(item: RecycleItemsData) {
             binding.txtWasteType.text = item.wasteType
-           // binding.txtDescription.text = item.description
+           binding.txtWasteDescription.text=item.description
         }
     }
 }

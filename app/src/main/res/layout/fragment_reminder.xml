@@ -4,19 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ui.reminder.ReminderFragment">
 
-    <TextView
-        android:id="@+id/text_gallery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="102dp"
+        android:layout_height="51dp"
+        android:text="Switch"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_non_urnable_garbage"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.877"
+        app:layout_constraintStart_toStartOf="@+id/txt_non_urnable_garbage"
+        app:layout_constraintTop_toTopOf="@+id/txt_non_urnable_garbage" />
+
+    <TextView
+        android:id="@+id/txt_non_urnable_garbage"
+        android:layout_width="176dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="64dp"
+        android:text="Non Burnable"
+        android:textAlignment="gravity"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

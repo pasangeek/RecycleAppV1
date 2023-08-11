@@ -16,10 +16,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.recycleappv1.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -36,6 +39,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_splash)
         //supportActionBar?.hide()
+
+
+
         lifecycleScope.launch {
             delay(SPLASH_DISPLAY_LENGTH)
 
@@ -49,12 +55,16 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
     fun navigateToMainContent(){
 
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
@@ -64,9 +74,15 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        // Set up the Bottom Navigation
+        //val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+       // NavigationUI.setupWithNavController(bottomNavigationView, navController)
+
+
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_reminder, R.id.nav_setting
+                R.id.nav_home, R.id.nav_reminder,R.id.nav_wasteCatalog, R.id.nav_setting
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

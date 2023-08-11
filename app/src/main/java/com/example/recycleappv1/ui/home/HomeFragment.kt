@@ -16,6 +16,10 @@ import com.example.recycleappv1.common.show
 import com.example.recycleappv1.data.model.RecycleItemsData
 import com.example.recycleappv1.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,6 +52,7 @@ _binding.recyclerView.apply {
     layoutManager = LinearLayoutManager(context)
     hasFixedSize()
 }
+       // showTodaysWasteDescription()
         initObservers();
         viewModel.getTodayRecyclerItems()
     }
@@ -78,4 +83,20 @@ _binding.recyclerView.apply {
 
 
     }
+   /* private fun addPostEventListener(postReference: DatabaseReference){
+    val postListener = object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            // Get Post object and use the values to update the UI
+            val post = dataSnapshot.getValue<description>()
+            // ...
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            // Getting Post failed, log a message
+            Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+        }
+    }
+    postReference.addValueEventListener(postListener)
+    }*/
+
 }

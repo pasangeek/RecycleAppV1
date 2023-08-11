@@ -16,7 +16,11 @@
         android:name="com.example.recycleappv1.ui.reminder.ReminderFragment"
         android:label="@string/menu_reminder"
         tools:layout="@layout/fragment_reminder" />
-
+    <fragment
+        android:id="@+id/nav_wasteCatalog"
+        android:name="com.example.recycleappv1.ui.wastecatalog.WasteCatalog"
+        android:label="@string/WasteGuidelines"
+        tools:layout="@layout/fragment_waste_catalog" />
     <fragment
         android:id="@+id/nav_setting"
         android:name="com.example.recycleappv1.ui.setting.SettingFragment"
@@ -59,5 +63,6 @@
         android:name="com.example.recycleappv1.ui.onboarding.ViewPagerFragment"
         android:label="fragment_view_pager"
         tools:layout="@layout/fragment_view_pager" />
+
 
 </navigation>
