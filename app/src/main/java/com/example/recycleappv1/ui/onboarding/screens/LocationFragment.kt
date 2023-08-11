@@ -44,7 +44,13 @@ _binding.finish.setOnClickListener {
 
 
     }
+private fun LocationSaveToSharedPreference(){
 
+    val sharedPref = requireActivity().getSharedPreferences("Location", Context.MODE_PRIVATE)
+    val editor = sharedPref.edit()
+    editor.putBoolean("Finished", true)
+    editor.apply()
+}
 
     private fun onBoardingFinished(){
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)

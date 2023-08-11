@@ -20,20 +20,6 @@
         app:layout_constraintTop_toTopOf="@+id/txt_non_urnable_garbage" />
 
     <TextView
-        android:id="@+id/txt_burnable"
-        android:layout_width="229dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="72dp"
-        android:text="Burnable Garbage"
-        android:textAlignment="gravity"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_non_urnable_garbage" />
-
-    <TextView
         android:id="@+id/txt_non_urnable_garbage"
         android:layout_width="176dp"
         android:layout_height="40dp"
@@ -46,78 +32,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_recyclable"
-        android:layout_width="176dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="56dp"
-        android:text="Recyclable"
-        android:textAlignment="gravity"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/switch4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_burnable"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Switch
-        android:id="@+id/switch3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_burnable"
-        app:layout_constraintEnd_toEndOf="@+id/switch2"
-        app:layout_constraintStart_toStartOf="@+id/switch2"
-        app:layout_constraintTop_toTopOf="@+id/txt_burnable" />
-
-    <Switch
-        android:id="@+id/switch4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="Switch"
-        app:layout_constraintEnd_toEndOf="@+id/switch3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/txt_burnable"
-        app:layout_constraintTop_toBottomOf="@+id/switch3" />
-
-    <Switch
-        android:id="@+id/switch5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
-        app:layout_constraintEnd_toEndOf="@+id/switch4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/switch4"
-        tools:layout_editor_absoluteY="395dp" />
-
-    <Switch
-        android:id="@+id/switch6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
-        app:layout_constraintEnd_toEndOf="@+id/switch5"
-        tools:layout_editor_absoluteY="484dp" />
-
-    <Switch
-        android:id="@+id/switch7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
-        app:layout_constraintEnd_toEndOf="@+id/switch6"
-        app:layout_constraintStart_toStartOf="@+id/switch6"
-        tools:layout_editor_absoluteY="569dp" />
-
-    <Switch
-        android:id="@+id/switch8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
-        app:layout_constraintEnd_toEndOf="@+id/switch7"
-        app:layout_constraintStart_toStartOf="@+id/switch7"
-        tools:layout_editor_absoluteY="646dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

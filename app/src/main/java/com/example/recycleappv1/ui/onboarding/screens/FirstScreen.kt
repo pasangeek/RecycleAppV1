@@ -1,5 +1,6 @@
 package com.example.recycleappv1.ui.onboarding.screens
 
+
 import android.Manifest
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
@@ -17,12 +18,12 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recycleappv1.R
 import com.example.recycleappv1.data.model.LocationData
 import com.example.recycleappv1.databinding.FragmentFirstScreenBinding
-
-
+import com.example.recycleappv1.ui.onboarding.location.LocationViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -33,11 +34,14 @@ import java.util.Locale
 
 @AndroidEntryPoint
 class FirstScreen : Fragment() {
+    private val PREFS_NAME = "locationShared"
+   // val sharedPref: SharedPreferences =requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
     val PERMISSION_ID = 1010
     private lateinit var _binding: FragmentFirstScreenBinding
-
+private val locationViewModel: LocationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,20 +57,29 @@ class FirstScreen : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentFirstScreenBinding.inflate(inflater, container, false)
         val root: View = _binding.root
+_binding.lifecycleOwner = this
+        _binding.vm = locationViewModel
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         // mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Activity())
         //val viewPager =  activity?.findViewById<ViewPager2>(R.id.viewPager)
-
+        getLastLocation()
+        Log.d("Debug:", checkLocationPermission().toString())
+          Log.d("Debug:", isLocationEnabled(requireContext()).toString())
+        requestLocationPermission()
         _binding.button.setOnClickListener {
-            Log.d("Debug:", checkLocationPermission().toString())
-            Log.d("Debug:", isLocationEnabled(requireContext()).toString())
-            requestLocationPermission()
-            getLastLocation()
+            //saveLocation(city = "c")
+
+           // Log.d("Debug:", checkLocationPermission().toString())
+         //   Log.d("Debug:", isLocationEnabled(requireContext()).toString())
+            //requestLocationPermission()
+           // getLastLocation()
         }
 
 
         _binding.next.setOnClickListener {
             //viewPager?.currentItem = 1
+
+
             navigateToThirdFragment()
 
         }
@@ -111,7 +124,7 @@ class FirstScreen : Fragment() {
         if (Adress != null) {
             cityName = Adress.get(0).locality
         }
-        val locationData: LocationData= LocationData(lat, long, cityName)
+        val locationData = LocationData( cityName)
 
         _binding.address.text = "You Current Location is : Long: " + locationData.city
         Log.d("Debug:", "Your City: " + cityName)
@@ -122,7 +135,7 @@ class FirstScreen : Fragment() {
         override fun onLocationResult(locationResult: LocationResult) {
             val lastLocation: Location = locationResult.lastLocation
             Log.d("Debug:", "your last last location: " + lastLocation.longitude.toString())
-         
+
         }
     }
 
@@ -203,5 +216,16 @@ class FirstScreen : Fragment() {
         findNavController().navigate(R.id.action_firstScreen_to_thirdScreen2)
     }
 
+   /* fun saveLocation(city: LocationData) {
+        sharedPref.edit().putString("city", Gson().toJson(city)).apply()
+    }
+
+    fun getLocation(): LocationData? {
+        val data = sharedPref.getString("city", null)
+        if (data == null) {
+            return null
+        }
+        return Gson().fromJson(data, LocationData::class.java)
+    }*/
 
 }
