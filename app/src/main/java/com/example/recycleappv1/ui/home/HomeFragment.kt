@@ -1,9 +1,6 @@
 package com.example.recycleappv1.ui.home
 
-import android.content.ContentValues.TAG
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +13,6 @@ import com.example.recycleappv1.common.show
 import com.example.recycleappv1.data.model.RecycleItemsData
 import com.example.recycleappv1.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,7 +47,7 @@ _binding.recyclerView.apply {
 }
        // showTodaysWasteDescription()
         initObservers();
-        viewModel.getTodayRecyclerItems()
+        viewModel.getTodayWasteData()
     }
 
 

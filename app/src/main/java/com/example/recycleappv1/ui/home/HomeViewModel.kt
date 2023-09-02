@@ -15,7 +15,7 @@ class HomeViewModel @Inject constructor(
     ): ViewModel() {
 
     val responseGetRecyclerItems = MutableLiveData<Result>()
-    fun getTodayRecyclerItems() {
+    fun getTodayWasteData() {
         responseGetRecyclerItems.postValue(Result.Loading)
         recycleItemRepo.getTodayRecyclerItems("kitakata")
             .addOnSuccessListener { queryDocumentSnapshots ->

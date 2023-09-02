@@ -12,4 +12,7 @@ class RecycleItemRepo @Inject constructor(
     fun getTodayRecyclerItems(city: String) =
         remoteDataSource.getTodayRecyclerItems(city)
 
+    fun getWasteCatalogItems(city: String) =
+        remoteDataSource.getWasteCatalogItems(city)
+
 }

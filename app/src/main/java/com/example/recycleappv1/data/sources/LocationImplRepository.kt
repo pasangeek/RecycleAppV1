@@ -6,12 +6,12 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.recycleappv1.common.Data_Store.datastore
 import com.example.recycleappv1.data.model.LocationData
 import kotlinx.coroutines.flow.map
 
 
-const val DataStore_Name = "LOCATION_DATA"
-val Context.datastore : DataStore<Preferences> by  preferencesDataStore(name = DataStore_Name)
+
 class ImplRepository (private  val context: Context):LocationAbstract{
 
     companion object{

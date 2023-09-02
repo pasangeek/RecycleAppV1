@@ -16,5 +16,4 @@ import javax.inject.Singleton
 object LocationDataModule {
     @Singleton
     @Provides
-    fun provideDataStoreRepository(@ApplicationContext context: Context)= ImplRepository ( context)
-}
+    fun provideDataStoreRepository(@ApplicationContext context: Context)= ImplRepository ( context)}
