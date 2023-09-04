@@ -8,9 +8,9 @@ import kotlinx.parcelize.Parcelize
 data class WasteGuideLinesData(
     var description: String? = "",
     var guidelines: String? = "",
-    var recommendedBagImage: Uri = Uri.EMPTY,
+    var recommendedBagImage:  String? = "",
     var remarks: String? = "",
     var type: String? = "",
-    var typeOfWasteImage: Uri = Uri.EMPTY,
+    var typeOfWasteImage:  String? = "",
     var  isExpandable : Boolean = false
 ): Parcelable

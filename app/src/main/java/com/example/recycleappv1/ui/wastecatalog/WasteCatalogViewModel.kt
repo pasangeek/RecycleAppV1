@@ -17,20 +17,19 @@ class WasteCatalogViewModel@Inject constructor(
 
     fun getWasteCatalogData() {
         responseGetWasteCatalog.postValue(Result.Loading)
-        recycleItemRepo.getTodayRecyclerItems("kitakata")
+        recycleItemRepo.getWasteCatalogItems("kitakata")
             .addOnSuccessListener { queryDocumentSnapshots ->
                 val list = ArrayList<WasteGuideLinesData>()
-                queryDocumentSnapshots.documents.mapNotNull {
-
-                    val item = it.toObject(WasteGuideLinesData::class.java)
-
+                queryDocumentSnapshots.documents.forEach { doc ->
+                    val item = doc.toObject(WasteGuideLinesData::class.java)
                     if (item != null) {
                         list.add(item)
                     }
+                }
 
                     responseGetWasteCatalog.postValue(Result.Success<List<WasteGuideLinesData>>(list))
                 }
-            }.addOnFailureListener {
+            .addOnFailureListener {
                 responseGetWasteCatalog.postValue(Result.Failure("Failed data loading"))
             }
     }
