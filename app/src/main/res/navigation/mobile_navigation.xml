@@ -3,13 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.recycleappv1.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_reminder"
+            app:destination="@id/nav_reminder" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_wasteCatalog"
+            app:destination="@id/nav_wasteCatalog" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_setting"
+            app:destination="@id/nav_setting" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_reminder"
@@ -31,7 +41,7 @@
         android:id="@+id/firstScreen"
         android:name="com.example.recycleappv1.ui.onboarding.screens.FirstScreen"
         android:label="fragment_first_screen"
-        tools:layout="@layout/fragment_first_screen" >
+        tools:layout="@layout/fragment_first_screen">
         <action
             android:id="@+id/action_firstScreen_to_secondScreen3"
             app:destination="@id/secondScreen" />
@@ -46,23 +56,30 @@
         tools:layout="@layout/fragment_second_screen" />
     <fragment
         android:id="@+id/locationFragment"
-        android:name="com.example.recycleappv1.ui.onboarding.screens.LocationFragment"
-        android:label="fragment_third_screen"
-        tools:layout="@layout/fragment_third_screen" />
+        android:name="com.example.recycleappv1.ui.onboarding.location.LocationFragment"
+        android:label="Find Location"
+        tools:layout="@layout/fragment_third_screen">
+        <action
+            android:id="@+id/action_locationFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.recycleappv1.ui.onboarding.splash.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
+
         <action
-            android:id="@+id/action_splashFragment_to_viewPagerFragment"
-            app:destination="@id/viewPagerFragment" />
+            android:id="@+id/action_splashFragment_to_firstScreen"
+            app:destination="@id/firstScreen"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_nav_home"
+            app:destination="@id/nav_home"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
     </fragment>
-    <fragment
-        android:id="@+id/viewPagerFragment"
-        android:name="com.example.recycleappv1.ui.onboarding.ViewPagerFragment"
-        android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_view_pager" />
 
 
 </navigation>

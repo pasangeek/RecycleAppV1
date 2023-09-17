@@ -14,5 +14,6 @@ class RecycleItemRepo @Inject constructor(
 
     fun getWasteCatalogItems(city: String) =
         remoteDataSource.getWasteCatalogItems(city)
-
+    fun getRecyclerDataByWasteType(city: String, wastType: String) =
+        remoteDataSource.getRecyclerDataByWasteType(city, wastType)
 }

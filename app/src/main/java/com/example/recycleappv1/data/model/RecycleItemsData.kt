@@ -12,4 +12,5 @@ data class RecycleItemsData(
     var wasteType: String?  = "",
     @ServerTimestamp
     var date: Date? = null,
+    var iconUrl: String?  = ""
 ): Parcelable

@@ -1,19 +1,20 @@
 package com.example.recycleappv1.di
 
 import android.content.Context
-import com.example.recycleappv1.data.sources.IDataSource
-import com.example.recycleappv1.data.sources.ImplRepository
-
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object LocationDataModule {
-    @Singleton
+object CommonDataModule {
+
+
     @Provides
-    fun provideDataStoreRepository(@ApplicationContext context: Context)= ImplRepository ( context)}
+    fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences("RecycleApp", Context.MODE_PRIVATE)
+    }
+}
