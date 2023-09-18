@@ -24,6 +24,10 @@
     <string name="monthly">Monthly</string>
     <string name="this_week">This Week</string>
     <string name="WasteGuidelines">Waste Guidelines</string>
+    <string name="type" />
+    <string name="description" />
+    <string name="guidelinesl" />
+    <string name="guidelines" />
 
 
 </resources>

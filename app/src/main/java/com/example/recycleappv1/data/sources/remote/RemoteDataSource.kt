@@ -14,7 +14,17 @@ class RemoteDataSource @Inject constructor (
         val collectionRef = fireStore.collection("/Municipalities/${city}/recyclerItems")
         val calendar = Utils.getCurrentDate()
         val startTimestamp = Timestamp(calendar.time)
-        val query = collectionRef.whereGreaterThanOrEqualTo("date",startTimestamp)
+        val query = collectionRef.whereGreaterThanOrEqualTo("date",startTimestamp).limit(10)
+        return query.get()
+    }
+    fun getWasteCatalogItems(city: String): Task<QuerySnapshot> {
+        val collectionRef = fireStore.collection("/Municipalities/${city}/wasteGuideLines")
+
+        return collectionRef.get()
+    }
+    fun getRecyclerDataByWasteType(city: String, wastType: String): Task<QuerySnapshot> {
+        val collectionRef = fireStore.collection("/Municipalities/${city}/recyclerItems")
+        val query = collectionRef.whereEqualTo("wasteType",wastType)
         return query.get()
     }
 
