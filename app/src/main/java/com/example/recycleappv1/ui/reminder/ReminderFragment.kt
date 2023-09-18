@@ -10,6 +10,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.example.recycleappv1.common.BaseFragment
+import com.example.recycleappv1.common.Result
+import com.example.recycleappv1.common.convertToCalendarWithTime
+import com.example.recycleappv1.common.gone
+import com.example.recycleappv1.common.show
+import com.example.recycleappv1.data.model.RecycleItemsData
 import com.example.recycleappv1.databinding.FragmentReminderBinding
 import com.example.recycleappv1.ui.reminder.notification.Notification
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +50,47 @@ class ReminderFragment : BaseFragment() {
         binding = FragmentReminderBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.switch2.isChecked = viewModel.getNonBurnableReminderStatus()
+        binding.switch2.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
+                    when (it) {
+                        is Result.Loading -> {
+                            binding.progressBar.show()
+                        }
+
+                        is Result.Success<*> -> {
+                            binding.progressBar.gone()
+                            val items = it.result as List<RecycleItemsData>
+                            items.forEach { item ->
+
+                                val calendar = item.date?.convertToCalendarWithTime()
+                                calendar?.let {
+                                    setAlarm(it)
+                                }
+
+                            }
+
+                        }
+
+                        is Result.Failure -> {
+                            binding.progressBar.gone()
+                        }
+
+                    }
+                }
+                viewModel.getRecyclerDataByWasteType()
+            } else {
+                alarmManager?.cancel(pendingIntent)
+            }
+
+            viewModel.saveNonBurnableReminderStatus(isChecked)
+        }
+    }
+
     private fun setAlarm(target: Calendar) {
         alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntent)
         if (isAlarmSet()) {
@@ -65,5 +111,5 @@ class ReminderFragment : BaseFragment() {
     }
 
 
- 
+
 }
