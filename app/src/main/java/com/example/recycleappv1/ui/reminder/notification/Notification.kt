@@ -10,13 +10,14 @@ import androidx.core.app.NotificationCompat
 import com.example.recycleappv1.MainActivity
 import com.example.recycleappv1.R
 
+
+
 const val notificationID = 1
 const val channelID = "channel1"
 const val titleExtra = "titleExtra"
 const val messageExtra = "messageExtra"
 
-class Notification : BroadcastReceiver()
-{
+class Notification : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val activity = Intent(context, MainActivity::class.java)
         val pendingIntent =
@@ -47,4 +48,6 @@ class Notification : BroadcastReceiver()
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(System.currentTimeMillis().toInt(), notification)
     }
+
 }
+

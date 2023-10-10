@@ -3,21 +3,23 @@ package com.example.recycleappv1.ui.wastecatalog
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recycleappv1.common.Result
-import com.example.recycleappv1.data.model.RecycleItemsData
 import com.example.recycleappv1.data.model.WasteGuideLinesData
+import com.example.recycleappv1.data.sources.CommonImplRepository
 import com.example.recycleappv1.data.sources.RecycleItemRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class WasteCatalogViewModel@Inject constructor(
-    private val recycleItemRepo: RecycleItemRepo
+    private val recycleItemRepo: RecycleItemRepo,
+
+    private val commonImplRepository: CommonImplRepository
 ) : ViewModel() {
     val responseGetWasteCatalog = MutableLiveData<Result>()
 
     fun getWasteCatalogData() {
         responseGetWasteCatalog.postValue(Result.Loading)
-        recycleItemRepo.getWasteCatalogItems("kitakata")
+        recycleItemRepo.getWasteCatalogItems(getSavedCity()?:"")
             .addOnSuccessListener { queryDocumentSnapshots ->
                 val list = ArrayList<WasteGuideLinesData>()
                 queryDocumentSnapshots.documents.forEach { doc ->
@@ -33,5 +35,5 @@ class WasteCatalogViewModel@Inject constructor(
                 responseGetWasteCatalog.postValue(Result.Failure("Failed data loading"))
             }
     }
-
+    private fun getSavedCity() = commonImplRepository.getSavedCity()
 }

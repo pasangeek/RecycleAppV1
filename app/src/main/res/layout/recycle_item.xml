@@ -55,10 +55,13 @@
         android:id="@+id/imgIcon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtDay"
+        android:layout_marginStart="156dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/txtDay"
         app:layout_constraintTop_toTopOf="@+id/txtDay"
+        app:layout_constraintVertical_bias="0.816"
         app:srcCompat="@drawable/baseline_cloud_24"
         app:tint="@color/white" />
 

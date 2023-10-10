@@ -56,17 +56,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    companion object {
-        private const val SPLASH_DISPLAY_LENGTH =
-            2000L // Adjust the duration as needed (in milliseconds).
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
 
-    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)

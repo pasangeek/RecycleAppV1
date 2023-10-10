@@ -18,9 +18,15 @@ class LocalDataSource @Inject constructor(private val sharePreferences: SharedPr
         sharePreferences.edit().putBoolean("nonBurnableReminder", status).apply()
     }
 
+    fun saveBurnableReminderStatus(status: Boolean) {
+        sharePreferences.edit().putBoolean("BurnableReminder", status).apply()
+    }
+
     fun getNonBurnableReminderStatus() : Boolean{
         return sharePreferences.getBoolean("nonBurnableReminder", false)
     }
-
+    fun getBurnableReminderStatus() : Boolean{
+        return sharePreferences.getBoolean("BurnableReminder", false)
+    }
 
 }

@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import com.example.recycleappv1.common.BaseFragment
 import com.example.recycleappv1.common.Result
@@ -25,36 +25,32 @@ class ReminderFragment : BaseFragment() {
 
     private lateinit var binding: FragmentReminderBinding
     private lateinit var pendingIntent: PendingIntent
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-
     private lateinit var myIntent: Intent
     private var alarmManager: AlarmManager? = null
-    private val viewModel: ReminderViewModel by viewModels()
 
+    private val viewModel: ReminderViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        alarmManager = ContextCompat.getSystemService(requireContext(), AlarmManager::class.java)
+        alarmManager = getSystemService(requireContext(), AlarmManager::class.java)
         myIntent = Intent(requireContext(), Notification::class.java)
         pendingIntent =
             PendingIntent.getBroadcast(requireContext(), 0, myIntent, PendingIntent.FLAG_IMMUTABLE)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
         binding = FragmentReminderBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.switch2.isChecked = viewModel.getNonBurnableReminderStatus()
-        binding.switch2.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchNonBurnable.isChecked = viewModel.getNonBurnableReminderStatus()
+        binding.switchNonBurnable.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
                     when (it) {
@@ -81,7 +77,9 @@ class ReminderFragment : BaseFragment() {
                         }
 
                     }
+
                 }
+                viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
                 viewModel.getRecyclerDataByWasteType()
             } else {
                 alarmManager?.cancel(pendingIntent)
@@ -92,11 +90,15 @@ class ReminderFragment : BaseFragment() {
     }
 
     private fun setAlarm(target: Calendar) {
-        alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntent)
-        if (isAlarmSet()) {
-            println("Alarm set success")
+        if(target.timeInMillis > System.currentTimeMillis()){
+            alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntent)
+            if (isAlarmSet()) {
+                println("Alarm set success")
+            }
         }
+
     }
+
     private fun isAlarmSet(): Boolean {
         val intent = Intent(
             context,
@@ -109,7 +111,4 @@ class ReminderFragment : BaseFragment() {
             )
         return pendingIntent != null
     }
-
-
-
 }

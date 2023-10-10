@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/firstScreen"
         android:name="com.example.recycleappv1.ui.onboarding.screens.FirstScreen"
-        android:label="fragment_first_screen"
+        android:label="Welocome To Waste Wise"
         tools:layout="@layout/fragment_first_screen">
         <action
             android:id="@+id/action_firstScreen_to_secondScreen3"

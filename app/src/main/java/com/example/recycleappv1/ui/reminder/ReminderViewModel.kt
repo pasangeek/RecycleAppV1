@@ -22,7 +22,6 @@ class ReminderViewModel  @Inject constructor(
     val text: LiveData<String> = _text
 
     val responseGetRecyclerItems = MutableLiveData<Result>()
-
     fun getRecyclerDataByWasteType() {
         responseGetRecyclerItems.postValue(Result.Loading)
         recycleItemRepo.getRecyclerDataByWasteType(getSavedCity()?:"", "Non Burnable")
@@ -45,5 +44,4 @@ class ReminderViewModel  @Inject constructor(
 
     fun getNonBurnableReminderStatus() : Boolean = commonImplRepository.getNonBurnableReminderStatus()
     fun saveNonBurnableReminderStatus(status: Boolean) = commonImplRepository.saveNonBurnableReminderStatus(status)
-
 }

@@ -44,13 +44,13 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
             layoutManager = LinearLayoutManager(context)
             hasFixedSize()
         }
-    //    wasteCatalogList = ArrayList()
-    //   adapter = WasteCatalogAdapter(wasteCatalogList)
-    //   _binding.catalogsRecyclerView.adapter = adapter
+       wasteCatalogList = ArrayList()
+      adapter = WasteCatalogAdapter(wasteCatalogList)
+      _binding.catalogsRecyclerView.adapter = adapter
 
         // showTodaysWasteDescription()
-      //  initObservers();
-     //   viewModel.getWasteCatalogData()
+       initObservers();
+       viewModel.getWasteCatalogData()
 
         // Set up the search functionality using the SearchView
        _binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

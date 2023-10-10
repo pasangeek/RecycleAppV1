@@ -31,7 +31,7 @@ class SettingFragment : Fragment() {
       _binding.clear.setOnClickListener{
 
           deleteDataFromSharedPreferences(requireContext())
-
+          deleteRemindervalues(requireContext())
       }
 
 
@@ -39,9 +39,17 @@ class SettingFragment : Fragment() {
     }
 
     fun deleteDataFromSharedPreferences(context: Context) {
-        val sharedPreferences = context.getSharedPreferences("RecycleApp", Context.MODE_PRIVATE)
+        val sharedPreferences = context.getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.remove("Finished")
+        editor.apply()
+    }
+    fun deleteRemindervalues(context: Context) {
+        val sharedPreferences = context.getSharedPreferences("RecycleApp", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove("BurnableReminder")
+        editor.remove("nonBurnableReminder")
+
         editor.apply()
     }
 }
