@@ -1,11 +1,14 @@
 package com.example.recycleappv1.ui.setting
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.example.recycleappv1.MainActivity
 import com.example.recycleappv1.databinding.FragmentSettingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,9 +32,9 @@ class SettingFragment : Fragment() {
         val root: View = _binding.root
 
       _binding.clear.setOnClickListener{
+          showConfirmationDialog(requireContext())
 
-          deleteDataFromSharedPreferences(requireContext())
-          deleteRemindervalues(requireContext())
+
       }
 
 
@@ -52,4 +55,28 @@ class SettingFragment : Fragment() {
 
         editor.apply()
     }
+    fun showConfirmationDialog(context: Context) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Confirm Action")
+        builder.setMessage("Are you sure you want to clear your location? This action cannot be undone.")
+
+        builder.setPositiveButton("Clear") { _, _ ->
+            // User confirmed, delete data
+            deleteDataFromSharedPreferences(context)
+            restartApp(context)
+        }
+
+        builder.setNegativeButton("Cancel") { _, _ ->
+            // User canceled the action
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+    fun restartApp(context: Context) {
+        val intent = Intent(context, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        context.startActivity(intent)
+    }
+
 }

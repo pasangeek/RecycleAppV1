@@ -6,18 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recycleappv1.R
 import com.example.recycleappv1.databinding.FragmentFirstScreenBinding
-import com.example.recycleappv1.ui.onboarding.location.LocationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FirstScreen : Fragment() {
 
     private lateinit var _binding: FragmentFirstScreenBinding
-    private val locationViewModel: LocationViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +26,7 @@ class FirstScreen : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentFirstScreenBinding.inflate(inflater, container, false)
         val root: View = _binding.root
-        _binding.lifecycleOwner = this
-        _binding.vm = locationViewModel
+
 
         _binding.next.setOnClickListener {
             navigateToThirdFragment()
@@ -44,16 +41,6 @@ class FirstScreen : Fragment() {
         findNavController().navigate(R.id.action_firstScreen_to_thirdScreen2)
     }
 
-    /* fun saveLocation(city: LocationData) {
-         sharedPref.edit().putString("city", Gson().toJson(city)).apply()
-     }
 
-     fun getLocation(): LocationData? {
-         val data = sharedPref.getString("city", null)
-         if (data == null) {
-             return null
-         }
-         return Gson().fromJson(data, LocationData::class.java)
-     }*/
 
 }
