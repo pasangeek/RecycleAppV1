@@ -16,6 +16,9 @@
     <string name="description" />
     <string name="guidelines" />
     <string name="Switch" />
+    <string name="guidelines_placeholder">guidelines</string>
+    <string name="description_placeholder">description</string>
+    <string name="type_placeholder">type</string>
 
 
 </resources>

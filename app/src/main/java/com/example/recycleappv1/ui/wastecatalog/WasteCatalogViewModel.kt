@@ -16,6 +16,15 @@ class WasteCatalogViewModel@Inject constructor(
     private val commonImplRepository: CommonImplRepository
 ) : ViewModel() {
     val responseGetWasteCatalog = MutableLiveData<Result>()
+    private val wasteCatalogData = MutableLiveData<List<WasteGuideLinesData>>()
+
+    init {
+        // Initialize wasteCatalogData with the complete data
+        wasteCatalogData.value = emptyList()
+    }
+
+    // Function to update the filtered data based on the search query
+
 
     fun getWasteCatalogData() {
         responseGetWasteCatalog.postValue(Result.Loading)

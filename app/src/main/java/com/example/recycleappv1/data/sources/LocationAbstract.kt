@@ -7,4 +7,7 @@ interface LocationAbstract {
 
     fun saveNonBurnableReminderStatus(status: Boolean)
     fun getNonBurnableReminderStatus() : Boolean
+
+
+
 }

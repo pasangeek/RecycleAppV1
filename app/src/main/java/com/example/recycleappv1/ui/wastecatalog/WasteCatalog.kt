@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -58,8 +57,8 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filter(newText ?: "")
+            override fun onQueryTextChange(newText: String): Boolean {
+                filter(newText )
                 return true
             }
         })
@@ -98,20 +97,16 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
 }
     // Filter the list based on the search query
     private fun filter(query: String) {
-        val filteredList = java.util.ArrayList<WasteGuideLinesData>()
-        for (i in wasteCatalogList) {
-            if (i.type?.lowercase(Locale.ROOT)?.contains(query) == true) {
-                filteredList.add(i)
+        val filteredList = ArrayList<WasteGuideLinesData>()
+
+        for (wasteGuideLine in wasteCatalogList) { // Assuming you have an original list
+            if (wasteGuideLine.type?.lowercase()?.contains(query.lowercase(Locale.getDefault())) == true) {
+                filteredList.add(wasteGuideLine)
             }
         }
-// Update the adapter with the filtered list or show a message
-        if (filteredList.isEmpty()) {
-            // Use the context from the parent activity or fragment
-            val context = requireContext() // or activityContext depending on your use case
-            Toast.makeText(context, "No Data found", Toast.LENGTH_SHORT).show()
-        } else {
-            adapter.setFilteredList(filteredList)
-        }
+
+        adapter.setFilteredList(filteredList)
     }
+
 
 }
