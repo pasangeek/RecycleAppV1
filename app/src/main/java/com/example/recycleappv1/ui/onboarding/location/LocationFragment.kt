@@ -6,13 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.recycleappv1.R
 import com.example.recycleappv1.common.BaseFragment
+import com.example.recycleappv1.common.disable
+import com.example.recycleappv1.common.enable
 import com.example.recycleappv1.common.hide
 import com.example.recycleappv1.common.show
 import com.example.recycleappv1.databinding.FragmentThirdScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LocationFragment : BaseFragment() {
@@ -41,18 +45,32 @@ class LocationFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding.progressBar.show()
+        _binding.finish.disable()
         updateCurrentCity()
     }
 
     override fun onFailedLocation() {
         super.onFailedLocation()
         _binding.progressBar.hide()
+        _binding.finish.enable()
     }
 
     override fun onCityFound(cityName: String) {
         super.onCityFound(cityName)
-        locationViewModel.saveData(cityName)
-        _binding.progressBar.hide()
+        lifecycleScope.launch {
+            locationViewModel.checkLocationExist(cityName).observe(viewLifecycleOwner) {exist->
+                _binding.progressBar.hide()
+                _binding.finish.enable()
+                if(!exist){
+                    findNavController().navigate(R.id.action_locationFragment_to_secondScreen)
+                }else{
+                    onBoardingFinished()
+                    locationViewModel.saveData(cityName)
+                }
+            }
+        }
+
+
     }
 
     private fun onBoardingFinished() {

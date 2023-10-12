@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import com.example.recycleappv1.common.BaseFragment
@@ -36,6 +37,8 @@ class ReminderFragment : BaseFragment() {
         myIntent = Intent(requireContext(), Notification::class.java)
         pendingIntent =
             PendingIntent.getBroadcast(requireContext(), 0, myIntent, PendingIntent.FLAG_IMMUTABLE)
+
+
     }
 
     override fun onCreateView(
@@ -51,6 +54,7 @@ class ReminderFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.switchNonBurnable.isChecked = viewModel.getNonBurnableReminderStatus()
         binding.switchNonBurnable.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
             if (isChecked) {
                 viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
                     when (it) {
@@ -79,7 +83,6 @@ class ReminderFragment : BaseFragment() {
                     }
 
                 }
-                viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
                 viewModel.getRecyclerDataByWasteType()
             } else {
                 alarmManager?.cancel(pendingIntent)
@@ -93,6 +96,7 @@ class ReminderFragment : BaseFragment() {
         if(target.timeInMillis > System.currentTimeMillis()){
             alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntent)
             if (isAlarmSet()) {
+                Toast.makeText(requireContext(), "Alarm set successfully", Toast.LENGTH_LONG).show()
                 println("Alarm set success")
             }
         }

@@ -1,19 +1,14 @@
 package com.example.recycleappv1.common
 
+import android.content.Context
+import android.content.DialogInterface
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import com.example.recycleappv1.R
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
-fun Date.convertToCalendar(): Calendar {
-    val calendar = Calendar.getInstance()
-    calendar.time = this
-    calendar.set(Calendar.HOUR_OF_DAY, 0)
-    calendar.set(Calendar.MINUTE, 0)
-    calendar.set(Calendar.SECOND, 0)
-    calendar.set(Calendar.MILLISECOND, 0)
-    return calendar
-}
 
 fun Date.convertToCalendarWithoutTime(): Calendar {
     val calendar = Calendar.getInstance()
@@ -27,6 +22,7 @@ fun Date.convertToCalendarWithoutTime(): Calendar {
 fun Date.convertToCalendarWithTime(): Calendar {
     val calendar = Calendar.getInstance()
     calendar.time = this
+    println("Time before: ${calendar.timeInMillis} ${calendar.timeZone.displayName}")
     return calendar
 }
 fun Date.dateToDayOfWeek(): String {
@@ -53,4 +49,27 @@ fun View.gone() {
 
 fun View.hide() {
     visibility = View.INVISIBLE
+}
+
+
+fun View.enable() {
+    isEnabled = true
+}
+
+fun View.disable() {
+    isEnabled = false
+}
+
+fun Context.showAlert(
+    title: String, message: String, positiveClick: () -> Unit
+) {
+    val alertDialog = AlertDialog.Builder(this)
+    alertDialog.apply {
+        setTitle(title)
+        setMessage(message)
+        setPositiveButton(R.string.ok) { dialogInterface: DialogInterface, _: Int ->
+            dialogInterface.dismiss()
+            positiveClick()
+        }
+    }.show()
 }

@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_locationFragment_to_nav_home"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_locationFragment_to_secondScreen"
+            app:destination="@id/secondScreen" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"

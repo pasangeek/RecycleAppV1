@@ -19,6 +19,7 @@
     <string name="guidelines_placeholder">guidelines</string>
     <string name="description_placeholder">description</string>
     <string name="type_placeholder">type</string>
+    <string name="ok" />
 
 
 </resources>
