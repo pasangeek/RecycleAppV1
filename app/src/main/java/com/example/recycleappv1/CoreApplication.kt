@@ -12,7 +12,7 @@ class CoreApplication :Application(){
 
     override fun onCreate() {
         super.onCreate()
-        val channelName: CharSequence = "Burnable Reminder"
+        val channelName: CharSequence = " Non Burnable Reminder"
         val importance = NotificationManager.IMPORTANCE_HIGH
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -22,6 +22,15 @@ class CoreApplication :Application(){
             )
             notificationManager.createNotificationChannel(channel)
         }
+        val channelBurnable: CharSequence = " Burnable Reminder"
+        val importance2 = NotificationManager.IMPORTANCE_HIGH
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelID, channelBurnable, importance)
+            val notificationManager = getSystemService(
+                NotificationManager::class.java
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 }

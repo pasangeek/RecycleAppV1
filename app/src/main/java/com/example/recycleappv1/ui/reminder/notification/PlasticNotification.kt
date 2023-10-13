@@ -10,29 +10,23 @@ import androidx.core.app.NotificationCompat
 import com.example.recycleappv1.MainActivity
 import com.example.recycleappv1.R
 
-
-
-const val notificationID = 1
-const val channelID = "channel1"
-const val titleExtra = "titleExtra"
-const val messageExtra = "messageExtra"
-
-class Notification : BroadcastReceiver() {
+const val channelIDPlastic = "channel7"
+class PlasticNotification : BroadcastReceiver(){
     override fun onReceive(context: Context, intent: Intent) {
         val activity = Intent(context, MainActivity::class.java)
         val pendingIntent =
             PendingIntent.getActivity(
                 context,
-                0,
+                7,
                 activity,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
         val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationCompat.Builder(context, channelID)
+            NotificationCompat.Builder(context, channelIDPlastic)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Recycle App reminder")
-                .setContentText("Today is a burnable item collecting day")
+                .setContentText("Today is a Plastic collecting day")
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true).build()
@@ -40,7 +34,7 @@ class Notification : BroadcastReceiver() {
             NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Recycle App reminder")
-                .setContentText("Today is a burnable item collecting day")
+                .setContentText("Today is a Plastic collecting day")
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true).build()
@@ -48,6 +42,4 @@ class Notification : BroadcastReceiver() {
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(System.currentTimeMillis().toInt(), notification)
     }
-
 }
-

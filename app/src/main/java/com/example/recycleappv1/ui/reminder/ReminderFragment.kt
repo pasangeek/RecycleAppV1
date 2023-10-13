@@ -17,7 +17,7 @@ import com.example.recycleappv1.common.gone
 import com.example.recycleappv1.common.show
 import com.example.recycleappv1.data.model.RecycleItemsData
 import com.example.recycleappv1.databinding.FragmentReminderBinding
-import com.example.recycleappv1.ui.reminder.notification.Notification
+import com.example.recycleappv1.ui.reminder.notification.NonBurnableNotification
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
@@ -34,7 +34,7 @@ class ReminderFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         alarmManager = getSystemService(requireContext(), AlarmManager::class.java)
-        myIntent = Intent(requireContext(), Notification::class.java)
+        myIntent = Intent(requireContext(), NonBurnableNotification::class.java)
         pendingIntent =
             PendingIntent.getBroadcast(requireContext(), 0, myIntent, PendingIntent.FLAG_IMMUTABLE)
 
@@ -106,7 +106,7 @@ class ReminderFragment : BaseFragment() {
     private fun isAlarmSet(): Boolean {
         val intent = Intent(
             context,
-            Notification::class.java
+            NonBurnableNotification::class.java
         ) // Replace YourReceiver with the appropriate receiver class
         val pendingIntent =
             PendingIntent.getBroadcast(
