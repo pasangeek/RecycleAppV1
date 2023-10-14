@@ -41,7 +41,12 @@
             </intent-filter>
         </activity>
         <receiver android:name=".ui.reminder.notification.NonBurnableNotification"/>
-
+        <receiver android:name=".ui.reminder.notification.BurnableNotification"/>
+        <receiver android:name=".ui.reminder.notification.CardBoardnotification"/>
+        <receiver android:name=".ui.reminder.notification.EmptyBottlesNotification"/>
+        <receiver android:name=".ui.reminder.notification.GlassNotification"/>
+        <receiver android:name=".ui.reminder.notification.PetBottlesNotification"/>
+        <receiver android:name=".ui.reminder.notification.PlasticNotification"/>
     </application>
 
 </manifest>

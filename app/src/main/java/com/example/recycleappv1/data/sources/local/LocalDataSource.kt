@@ -21,12 +21,42 @@ class LocalDataSource @Inject constructor(private val sharePreferences: SharedPr
     fun saveBurnableReminderStatus(status: Boolean) {
         sharePreferences.edit().putBoolean("BurnableReminder", status).apply()
     }
-
+    fun saveCardBoardReminderStatus(status: Boolean) {
+        sharePreferences.edit().putBoolean("CardBoardReminder", status).apply()
+    }
+    fun saveEmptyBottlesReminderStatus(status: Boolean) {
+        sharePreferences.edit().putBoolean("EmptyBottlesReminder", status).apply()
+    }
+    fun saveCansReminderStatus(status: Boolean) {
+        sharePreferences.edit().putBoolean("CansReminder", status).apply()
+    }
+    fun savePetReminderStatus(status: Boolean) {
+        sharePreferences.edit().putBoolean("PetReminder", status).apply()
+    }
+    fun savePlasticReminderStatus(status: Boolean) {
+        sharePreferences.edit().putBoolean("PlasticReminder", status).apply()
+    }
     fun getNonBurnableReminderStatus() : Boolean{
         return sharePreferences.getBoolean("nonBurnableReminder", false)
     }
     fun getBurnableReminderStatus() : Boolean{
         return sharePreferences.getBoolean("BurnableReminder", false)
     }
+    fun getCardBoardReminderStatus() : Boolean{
+        return sharePreferences.getBoolean("CardBoardReminder", false)
+    }
+    fun getEmptyBottlesReminderStatus() : Boolean{
+        return sharePreferences.getBoolean("EmptyBottlesReminder", false)
+    }
+    fun getCansReminderStatus() : Boolean{
+        return sharePreferences.getBoolean("CansReminder", false)
+    }
+    fun getPetReminderStatus() : Boolean{
+        return sharePreferences.getBoolean("PetReminder", false)
 
+    }
+    fun getPlasticReminderStatus() : Boolean{
+        return sharePreferences.getBoolean("PlasticReminder", false)
+
+    }
 }

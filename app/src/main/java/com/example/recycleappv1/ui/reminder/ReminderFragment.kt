@@ -17,7 +17,13 @@ import com.example.recycleappv1.common.gone
 import com.example.recycleappv1.common.show
 import com.example.recycleappv1.data.model.RecycleItemsData
 import com.example.recycleappv1.databinding.FragmentReminderBinding
+import com.example.recycleappv1.ui.reminder.notification.BurnableNotification
+import com.example.recycleappv1.ui.reminder.notification.CardBoardnotification
+import com.example.recycleappv1.ui.reminder.notification.EmptyBottlesNotification
+import com.example.recycleappv1.ui.reminder.notification.GlassNotification
 import com.example.recycleappv1.ui.reminder.notification.NonBurnableNotification
+import com.example.recycleappv1.ui.reminder.notification.PetBottlesNotification
+import com.example.recycleappv1.ui.reminder.notification.PlasticNotification
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
@@ -25,8 +31,21 @@ import java.util.Calendar
 class ReminderFragment : BaseFragment() {
 
     private lateinit var binding: FragmentReminderBinding
-    private lateinit var pendingIntent: PendingIntent
+    private lateinit var pendingIntentNonBurnable: PendingIntent
+    private lateinit var pendingIntentCardBoard: PendingIntent
+    private lateinit var pendingIntentEmptyBottles: PendingIntent
+    private lateinit var pendingIntentCans: PendingIntent
+    private lateinit var pendingIntentPetBottles: PendingIntent
+    private lateinit var pendingIntentPlastic: PendingIntent
+    private lateinit var pendingIntentBurnable: PendingIntent
+
     private lateinit var myIntent: Intent
+    private lateinit var myIntentCardBoard: Intent
+    private lateinit var myIntentEmptyBottles: Intent
+    private lateinit var myIntentCans: Intent
+    private lateinit var myIntentPetBottles: Intent
+    private lateinit var myIntentPlastic: Intent
+    private lateinit var myIntentBurnable: Intent
     private var alarmManager: AlarmManager? = null
 
     private val viewModel: ReminderViewModel by viewModels()
@@ -35,9 +54,26 @@ class ReminderFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         alarmManager = getSystemService(requireContext(), AlarmManager::class.java)
         myIntent = Intent(requireContext(), NonBurnableNotification::class.java)
-        pendingIntent =
+        myIntentBurnable= Intent(requireContext(), BurnableNotification::class.java)
+        myIntentCardBoard= Intent(requireContext(), CardBoardnotification::class.java)
+        myIntentEmptyBottles= Intent(requireContext(), EmptyBottlesNotification::class.java)
+        myIntentCans= Intent(requireContext(), GlassNotification::class.java)
+        myIntentPetBottles= Intent(requireContext(), PetBottlesNotification::class.java)
+        myIntentPlastic= Intent(requireContext(), PlasticNotification::class.java)
+        pendingIntentNonBurnable =
             PendingIntent.getBroadcast(requireContext(), 0, myIntent, PendingIntent.FLAG_IMMUTABLE)
-
+        pendingIntentBurnable =
+            PendingIntent.getBroadcast(requireContext(), 2, myIntentBurnable, PendingIntent.FLAG_IMMUTABLE)
+        pendingIntentCardBoard =
+            PendingIntent.getBroadcast(requireContext(), 3, myIntentCardBoard, PendingIntent.FLAG_IMMUTABLE)
+        pendingIntentEmptyBottles =
+            PendingIntent.getBroadcast(requireContext(), 4, myIntentEmptyBottles, PendingIntent.FLAG_IMMUTABLE)
+        pendingIntentCans =
+            PendingIntent.getBroadcast(requireContext(), 5, myIntentCans, PendingIntent.FLAG_IMMUTABLE)
+        pendingIntentPetBottles =
+            PendingIntent.getBroadcast(requireContext(), 6, myIntentPetBottles, PendingIntent.FLAG_IMMUTABLE)
+        pendingIntentPlastic =
+            PendingIntent.getBroadcast(requireContext(), 7, myIntentPlastic, PendingIntent.FLAG_IMMUTABLE)
 
     }
 
@@ -52,6 +88,7 @@ class ReminderFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.switchNonBurnable.isChecked = viewModel.getNonBurnableReminderStatus()
         binding.switchNonBurnable.setOnCheckedChangeListener { _, isChecked ->
             viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
@@ -85,16 +122,249 @@ class ReminderFragment : BaseFragment() {
                 }
                 viewModel.getRecyclerDataByWasteType()
             } else {
-                alarmManager?.cancel(pendingIntent)
+                alarmManager?.cancel(pendingIntentNonBurnable)
             }
 
             viewModel.saveNonBurnableReminderStatus(isChecked)
+        }
+
+
+        binding.switchBurnable.isChecked = viewModel.getBurnableReminderStatus()
+        binding.switchBurnable.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
+            if (isChecked) {
+                viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
+                    when (it) {
+                        is Result.Loading -> {
+                            binding.progressBar.show()
+                        }
+
+                        is Result.Success<*> -> {
+                            binding.progressBar.gone()
+                            val items = it.result as List<RecycleItemsData>
+                            items.forEach { item ->
+
+                                val calendar = item.date?.convertToCalendarWithTime()
+                                calendar?.let {
+                                    setAlarmBurnable(it)
+                                }
+
+                            }
+
+                        }
+
+                        is Result.Failure -> {
+                            binding.progressBar.gone()
+                        }
+
+                    }
+
+                }
+                viewModel.getRecyclerDataByWasteTypeBurnable()
+            } else {
+                alarmManager?.cancel(pendingIntentBurnable)
+            }
+
+            viewModel.saveBurnableReminderStatus(isChecked)
+        }
+
+
+        binding.switchCardBoard.isChecked = viewModel.getCardBoardReminderStatus()
+        binding.switchCardBoard.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
+            if (isChecked) {
+                viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
+                    when (it) {
+                        is Result.Loading -> {
+                            binding.progressBar.show()
+                        }
+
+                        is Result.Success<*> -> {
+                            binding.progressBar.gone()
+                            val items = it.result as List<RecycleItemsData>
+                            items.forEach { item ->
+
+                                val calendar = item.date?.convertToCalendarWithTime()
+                                calendar?.let {
+                                    setAlarmCardBoard(it)
+                                }
+
+                            }
+
+                        }
+
+                        is Result.Failure -> {
+                            binding.progressBar.gone()
+                        }
+
+                    }
+
+                }
+                viewModel.getRecyclerDataByWasteTypeCardBoard()
+            } else {
+                alarmManager?.cancel(pendingIntentCardBoard)
+            }
+
+            viewModel.saveCardBoardReminderStatus(isChecked)
+        }
+
+        binding.switchCans.isChecked = viewModel.getCansReminderStatus()
+        binding.switchCans.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
+            if (isChecked) {
+                viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
+                    when (it) {
+                        is Result.Loading -> {
+                            binding.progressBar.show()
+                        }
+
+                        is Result.Success<*> -> {
+                            binding.progressBar.gone()
+                            val items = it.result as List<RecycleItemsData>
+                            items.forEach { item ->
+
+                                val calendar = item.date?.convertToCalendarWithTime()
+                                calendar?.let {
+                                    setAlarmCans(it)
+                                }
+
+                            }
+
+                        }
+
+                        is Result.Failure -> {
+                            binding.progressBar.gone()
+                        }
+
+                    }
+
+                }
+                viewModel.getRecyclerDataByWasteTypeCans()
+            } else {
+                alarmManager?.cancel(pendingIntentCans)
+            }
+
+            viewModel.saveCansReminderStatus(isChecked)
+        }
+        binding.switchGlass.isChecked = viewModel.getEmptyBottlesReminderStatus()
+        binding.switchGlass.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
+            if (isChecked) {
+                viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
+                    when (it) {
+                        is Result.Loading -> {
+                            binding.progressBar.show()
+                        }
+
+                        is Result.Success<*> -> {
+                            binding.progressBar.gone()
+                            val items = it.result as List<RecycleItemsData>
+                            items.forEach { item ->
+
+                                val calendar = item.date?.convertToCalendarWithTime()
+                                calendar?.let {
+                                    setAlarmEmptyBottles(it)
+                                }
+
+                            }
+
+                        }
+
+                        is Result.Failure -> {
+                            binding.progressBar.gone()
+                        }
+
+                    }
+
+                }
+                viewModel.getRecyclerDataByWasteTypeEmptyBottles()
+            } else {
+                alarmManager?.cancel(pendingIntentEmptyBottles)
+            }
+
+            viewModel.saveEmptyBottlesReminderStatus(isChecked)
+        }
+        binding.switchPetBottles.isChecked = viewModel.getPetReminderStatus()
+        binding.switchPetBottles.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
+            if (isChecked) {
+                viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
+                    when (it) {
+                        is Result.Loading -> {
+                            binding.progressBar.show()
+                        }
+
+                        is Result.Success<*> -> {
+                            binding.progressBar.gone()
+                            val items = it.result as List<RecycleItemsData>
+                            items.forEach { item ->
+
+                                val calendar = item.date?.convertToCalendarWithTime()
+                                calendar?.let {
+                                    setAlarmPet(it)
+                                }
+
+                            }
+
+                        }
+
+                        is Result.Failure -> {
+                            binding.progressBar.gone()
+                        }
+
+                    }
+
+                }
+                viewModel.getRecyclerDataByWasteTypePet()
+            } else {
+                alarmManager?.cancel(pendingIntentPetBottles)
+            }
+
+            viewModel.savePetReminderStatus(isChecked)
+        }
+        binding.switchPlastic.isChecked = viewModel.getPlasticReminderStatus()
+        binding.switchPlastic.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
+            if (isChecked) {
+                viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
+                    when (it) {
+                        is Result.Loading -> {
+                            binding.progressBar.show()
+                        }
+
+                        is Result.Success<*> -> {
+                            binding.progressBar.gone()
+                            val items = it.result as List<RecycleItemsData>
+                            items.forEach { item ->
+
+                                val calendar = item.date?.convertToCalendarWithTime()
+                                calendar?.let {
+                                    setAlarmPlastic(it)
+                                }
+
+                            }
+
+                        }
+
+                        is Result.Failure -> {
+                            binding.progressBar.gone()
+                        }
+
+                    }
+
+                }
+                viewModel.getRecyclerDataByWasteTypePlastic()
+            } else {
+                alarmManager?.cancel(pendingIntentPlastic)
+            }
+
+            viewModel.savePlasticReminderStatus(isChecked)
         }
     }
 
     private fun setAlarm(target: Calendar) {
         if(target.timeInMillis > System.currentTimeMillis()){
-            alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntent)
+            alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntentNonBurnable)
             if (isAlarmSet()) {
                 Toast.makeText(requireContext(), "Alarm set successfully", Toast.LENGTH_LONG).show()
                 println("Alarm set success")
@@ -115,4 +385,132 @@ class ReminderFragment : BaseFragment() {
             )
         return pendingIntent != null
     }
+    private fun setAlarmBurnable(target: Calendar) {
+        if(target.timeInMillis > System.currentTimeMillis()){
+            alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntentBurnable)
+            if (isAlarmSetBurnable()) {
+                Toast.makeText(requireContext(), "Alarm set successfully", Toast.LENGTH_LONG).show()
+                println("Alarm set success")
+            }
+        }
+
+    }
+
+    private fun isAlarmSetBurnable(): Boolean {
+        val intent = Intent(
+            context,
+            BurnableNotification::class.java
+        ) // Replace YourReceiver with the appropriate receiver class
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                context, 2, intent,
+                PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+            )
+        return pendingIntent != null
+    }
+
+
+    private fun setAlarmCardBoard(target: Calendar) {
+        if(target.timeInMillis > System.currentTimeMillis()){
+            alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntentCardBoard)
+            if (isAlarmSetCardBoard()) {
+                Toast.makeText(requireContext(), "Alarm set successfully", Toast.LENGTH_LONG).show()
+                println("Alarm set success")
+            }
+        }}
+    private fun isAlarmSetCardBoard(): Boolean {
+        val intent = Intent(
+            context,
+            CardBoardnotification::class.java
+        ) // Replace YourReceiver with the appropriate receiver class
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                context, 3, intent,
+                PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+            )
+        return pendingIntent != null
+    }
+
+
+    private fun setAlarmEmptyBottles(target: Calendar) {
+        if(target.timeInMillis > System.currentTimeMillis()){
+            alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntentEmptyBottles)
+            if (isAlarmEmptyBottles()) {
+                Toast.makeText(requireContext(), "Alarm set successfully", Toast.LENGTH_LONG).show()
+                println("Alarm set success")
+            }
+        }}
+    private fun isAlarmEmptyBottles(): Boolean {
+        val intent = Intent(
+            context,
+            EmptyBottlesNotification::class.java
+        ) // Replace YourReceiver with the appropriate receiver class
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                context, 4, intent,
+                PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+            )
+        return pendingIntent != null
+    }
+    private fun setAlarmCans(target: Calendar) {
+        if(target.timeInMillis > System.currentTimeMillis()){
+            alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntentCans)
+            if (isAlarmSetCans()) {
+                Toast.makeText(requireContext(), "Alarm set successfully", Toast.LENGTH_LONG).show()
+                println("Alarm set success")
+            }
+        }}
+    private fun isAlarmSetCans(): Boolean {
+        val intent = Intent(
+            context,
+            GlassNotification::class.java
+        ) // Replace YourReceiver with the appropriate receiver class
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                context, 5, intent,
+                PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+            )
+        return pendingIntent != null
+    }
+    private fun setAlarmPet(target: Calendar) {
+        if(target.timeInMillis > System.currentTimeMillis()){
+            alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntentPetBottles)
+            if (isAlarmSetPet()) {
+                Toast.makeText(requireContext(), "Alarm set successfully", Toast.LENGTH_LONG).show()
+                println("Alarm set success")
+            }
+        }}
+    private fun isAlarmSetPet(): Boolean {
+        val intent = Intent(
+            context,
+            PetBottlesNotification::class.java
+        ) // Replace YourReceiver with the appropriate receiver class
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                context, 6, intent,
+                PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+            )
+        return pendingIntent != null
+    }
+    private fun setAlarmPlastic(target: Calendar) {
+        if(target.timeInMillis > System.currentTimeMillis()){
+            alarmManager?.set(AlarmManager.RTC_WAKEUP, target.timeInMillis, pendingIntentPlastic)
+            if (isAlarmSetPlastic()) {
+                Toast.makeText(requireContext(), "Alarm set successfully", Toast.LENGTH_LONG).show()
+                println("Alarm set success")
+            }
+        }}
+    private fun isAlarmSetPlastic(): Boolean {
+        val intent = Intent(
+            context,
+            PlasticNotification::class.java
+        ) // Replace YourReceiver with the appropriate receiver class
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                context, 7, intent,
+                PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+            )
+        return pendingIntent != null
+    }
+
 }

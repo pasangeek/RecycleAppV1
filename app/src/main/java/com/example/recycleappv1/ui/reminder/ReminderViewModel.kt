@@ -39,9 +39,125 @@ class ReminderViewModel  @Inject constructor(
                 responseGetRecyclerItems.postValue(Result.Failure("Failed data loading"))
             }
     }
+    fun getRecyclerDataByWasteTypeBurnable() {
+        responseGetRecyclerItems.postValue(Result.Loading)
+        recycleItemRepo.getRecyclerDataByWasteType(getSavedCity()?:"", "Burnable")
+            .addOnSuccessListener { queryDocumentSnapshots ->
+                val list = ArrayList<RecycleItemsData>()
+                queryDocumentSnapshots.documents.forEach {
+                    val item = it.toObject(RecycleItemsData::class.java)
+                    if (item != null) {
+                        list.add(item)
+                    }
 
+                }
+                responseGetRecyclerItems.postValue(Result.Success<List<RecycleItemsData>>(list))
+            }.addOnFailureListener {
+                responseGetRecyclerItems.postValue(Result.Failure("Failed data loading"))
+            }
+    }
+
+
+    fun getRecyclerDataByWasteTypeCardBoard() {
+        responseGetRecyclerItems.postValue(Result.Loading)
+        recycleItemRepo.getRecyclerDataByWasteType(getSavedCity()?:"", "CardBoard")
+            .addOnSuccessListener { queryDocumentSnapshots ->
+                val list = ArrayList<RecycleItemsData>()
+                queryDocumentSnapshots.documents.forEach {
+                    val item = it.toObject(RecycleItemsData::class.java)
+                    if (item != null) {
+                        list.add(item)
+                    }
+
+                }
+                responseGetRecyclerItems.postValue(Result.Success<List<RecycleItemsData>>(list))
+            }.addOnFailureListener {
+                responseGetRecyclerItems.postValue(Result.Failure("Failed data loading"))
+            }
+    }
+    fun getRecyclerDataByWasteTypeEmptyBottles() {
+        responseGetRecyclerItems.postValue(Result.Loading)
+        recycleItemRepo.getRecyclerDataByWasteType(getSavedCity()?:"", "Empty Bottles")
+            .addOnSuccessListener { queryDocumentSnapshots ->
+                val list = ArrayList<RecycleItemsData>()
+                queryDocumentSnapshots.documents.forEach {
+                    val item = it.toObject(RecycleItemsData::class.java)
+                    if (item != null) {
+                        list.add(item)
+                    }
+
+                }
+                responseGetRecyclerItems.postValue(Result.Success<List<RecycleItemsData>>(list))
+            }.addOnFailureListener {
+                responseGetRecyclerItems.postValue(Result.Failure("Failed data loading"))
+            }
+    }
+    fun getRecyclerDataByWasteTypeCans() {
+        responseGetRecyclerItems.postValue(Result.Loading)
+        recycleItemRepo.getRecyclerDataByWasteType(getSavedCity()?:"", "Cans")
+            .addOnSuccessListener { queryDocumentSnapshots ->
+                val list = ArrayList<RecycleItemsData>()
+                queryDocumentSnapshots.documents.forEach {
+                    val item = it.toObject(RecycleItemsData::class.java)
+                    if (item != null) {
+                        list.add(item)
+                    }
+
+                }
+                responseGetRecyclerItems.postValue(Result.Success<List<RecycleItemsData>>(list))
+            }.addOnFailureListener {
+                responseGetRecyclerItems.postValue(Result.Failure("Failed data loading"))
+            }
+    }
+    fun getRecyclerDataByWasteTypePet() {
+        responseGetRecyclerItems.postValue(Result.Loading)
+        recycleItemRepo.getRecyclerDataByWasteType(getSavedCity()?:"", "Pet Bottles")
+            .addOnSuccessListener { queryDocumentSnapshots ->
+                val list = ArrayList<RecycleItemsData>()
+                queryDocumentSnapshots.documents.forEach {
+                    val item = it.toObject(RecycleItemsData::class.java)
+                    if (item != null) {
+                        list.add(item)
+                    }
+
+                }
+                responseGetRecyclerItems.postValue(Result.Success<List<RecycleItemsData>>(list))
+            }.addOnFailureListener {
+                responseGetRecyclerItems.postValue(Result.Failure("Failed data loading"))
+            }
+    }
+    fun getRecyclerDataByWasteTypePlastic() {
+        responseGetRecyclerItems.postValue(Result.Loading)
+        recycleItemRepo.getRecyclerDataByWasteType(getSavedCity()?:"", "Plastic")
+            .addOnSuccessListener { queryDocumentSnapshots ->
+                val list = ArrayList<RecycleItemsData>()
+                queryDocumentSnapshots.documents.forEach {
+                    val item = it.toObject(RecycleItemsData::class.java)
+                    if (item != null) {
+                        list.add(item)
+                    }
+
+                }
+                responseGetRecyclerItems.postValue(Result.Success<List<RecycleItemsData>>(list))
+            }.addOnFailureListener {
+                responseGetRecyclerItems.postValue(Result.Failure("Failed data loading"))
+            }
+    }
     private fun getSavedCity() = commonImplRepository.getSavedCity()
 
     fun getNonBurnableReminderStatus() : Boolean = commonImplRepository.getNonBurnableReminderStatus()
+    fun getBurnableReminderStatus() : Boolean = commonImplRepository.getBurnableReminderStatus()
+    fun getCardBoardReminderStatus():Boolean= commonImplRepository.getCardBoardReminderStatus()
+    fun getEmptyBottlesReminderStatus():Boolean= commonImplRepository.getEmptyBottlesReminderStatus()
+    fun getCansReminderStatus():Boolean= commonImplRepository.getCansReminderStatus()
+    fun getPetReminderStatus():Boolean= commonImplRepository.getPetReminderStatus()
+    fun getPlasticReminderStatus():Boolean= commonImplRepository.getPlasticReminderStatus()
     fun saveNonBurnableReminderStatus(status: Boolean) = commonImplRepository.saveNonBurnableReminderStatus(status)
+
+    fun saveBurnableReminderStatus(status: Boolean) = commonImplRepository.saveBurnableReminderStatus(status)
+    fun saveCardBoardReminderStatus(status: Boolean) = commonImplRepository.saveCardBoardReminderStatus(status)
+    fun saveEmptyBottlesReminderStatus(status: Boolean) = commonImplRepository.saveEmptyBottlesReminderStatus(status)
+    fun saveCansReminderStatus(status: Boolean) = commonImplRepository.saveCansReminderStatus(status)
+    fun savePetReminderStatus(status: Boolean) = commonImplRepository.PetReminderStatus(status)
+    fun savePlasticReminderStatus(status: Boolean) = commonImplRepository.savePlasticReminderStatus(status)
 }
