@@ -19,7 +19,10 @@
     <string name="guidelines_placeholder">guidelines</string>
     <string name="description_placeholder">description</string>
     <string name="type_placeholder">type</string>
-    <string name="ok" />
+    <string name="OK" >ok</string>
+    <string name="sorry_your_location_is_not_in_database_please_send_us_the_brochure_photo_so_we_can_add_it_for_you">Sorry your location is not in database please send us the brochure photo so we can add it for you</string>
+    <string name="camera">Camera</string>
+    <string name="please_confirm_your_location">Please Confirm Your Location</string>
 
 
 </resources>

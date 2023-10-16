@@ -1,10 +1,6 @@
 package com.example.recycleappv1.common
 
-import android.content.Context
-import android.content.DialogInterface
 import android.view.View
-import androidx.appcompat.app.AlertDialog
-import com.example.recycleappv1.R
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -60,16 +56,3 @@ fun View.disable() {
     isEnabled = false
 }
 
-fun Context.showAlert(
-    title: String, message: String, positiveClick: () -> Unit
-) {
-    val alertDialog = AlertDialog.Builder(this)
-    alertDialog.apply {
-        setTitle(title)
-        setMessage(message)
-        setPositiveButton(R.string.ok) { dialogInterface: DialogInterface, _: Int ->
-            dialogInterface.dismiss()
-            positiveClick()
-        }
-    }.show()
-}
