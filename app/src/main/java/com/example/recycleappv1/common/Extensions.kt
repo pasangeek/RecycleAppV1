@@ -32,7 +32,7 @@ fun Date.dateToDayOfWeek(): String {
 }
 
 fun Date.convertToReadable(): String {
-    val spf = SimpleDateFormat("MMM dd, yyyy hh:mm:ss aaa")
+    val spf = SimpleDateFormat("MMM dd, yyyy")
     return spf.format(this)
 }
 fun View.show() {

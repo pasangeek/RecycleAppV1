@@ -52,7 +52,7 @@
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
-            android:layout_height="86dp"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="Please make sure to change location when moving to another location permenently  this will lead to app restart and choose new location"
             android:textColor="@color/black"

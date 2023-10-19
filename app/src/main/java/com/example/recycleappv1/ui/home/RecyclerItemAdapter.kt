@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.recycleappv1.common.convertToReadable
 import com.example.recycleappv1.common.dateToDayOfWeek
 import com.example.recycleappv1.data.model.RecycleItemsData
 import com.example.recycleappv1.databinding.RecycleItemBinding
@@ -39,7 +40,7 @@ class RecyclerItemAdapter(private val data: List<RecycleItemsData>) :
             binding.txtDay.text = item.date?.dateToDayOfWeek()
             binding.txtWasteType.text = item.wasteType
             binding.txtWasteDescription.text = item.description
-           // binding.txtDate.text = item.date?.convertToReadable()
+        binding.txtDate.text = item.date?.convertToReadable()
             Glide.with(itemView.context).load(item.iconUrl).into(binding.imgIcon)
         }
     }

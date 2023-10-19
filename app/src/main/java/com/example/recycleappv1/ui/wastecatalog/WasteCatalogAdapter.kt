@@ -1,9 +1,9 @@
 package com.example.recycleappv1.ui.wastecatalog
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.recycleappv1.data.model.WasteGuideLinesData
 import com.example.recycleappv1.databinding.CatalogListItemBinding
 
@@ -38,9 +38,14 @@ class WasteCatalogAdapter(
         holder.binding.type.text = wasteInfo.type
         holder.binding.description.text = wasteInfo.description
         holder.binding.guidelines.text = wasteInfo.guidelines
+        Glide.with(holder.itemView.context)
+            .load(wasteInfo.recommendedBagImage) // Replace with the actual image URL field in WasteGuideLinesData
+            .into(holder.binding.imageView4)
 
-        holder.binding.description.visibility = View.VISIBLE
-        holder.binding.guidelines.visibility = View.VISIBLE
+
+
+
+
 
 
     }

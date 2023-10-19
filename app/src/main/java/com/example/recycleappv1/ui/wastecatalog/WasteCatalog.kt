@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,17 +50,8 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
        initObservers();
        viewModel.getWasteCatalogData()
 
-        // Set up the search functionality using the SearchView
-       _binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                filter(newText )
-                return true
-            }
-        })
+
 
     }
 

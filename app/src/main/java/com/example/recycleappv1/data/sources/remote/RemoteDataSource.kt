@@ -34,12 +34,5 @@ class RemoteDataSource @Inject constructor(
         val collectionRef = fireStore.collection("Municipalities").document(cityName)
         return collectionRef.get()
     }
-    fun searchWasteCatalogItems(city: String, query: String): Task<QuerySnapshot> {
-        val collectionRef = fireStore.collection("/Municipalities/${city}/wasteGuideLines")
-        val queryText = query.toLowerCase()
-        // Query based on "type" field containing the search query
-        val query = collectionRef.whereArrayContains("type", queryText)
 
-        return query.get()
-    }
 }
