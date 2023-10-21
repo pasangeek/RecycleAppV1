@@ -30,7 +30,12 @@
         android:id="@+id/nav_wasteCatalog"
         android:name="com.example.recycleappv1.ui.wastecatalog.WasteCatalog"
         android:label="@string/WasteGuidelines"
-        tools:layout="@layout/fragment_waste_catalog" />
+        tools:layout="@layout/fragment_waste_catalog" >
+
+        <action
+            android:id="@+id/action_nav_wasteCatalog_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_setting"
         android:name="com.example.recycleappv1.ui.setting.SettingFragment"
@@ -83,6 +88,11 @@
             app:popUpToInclusive="true" />
 
     </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.recycleappv1.ui.wastecatalog.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 
 
 </navigation>

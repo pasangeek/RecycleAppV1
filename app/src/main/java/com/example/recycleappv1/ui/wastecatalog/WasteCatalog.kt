@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recycleappv1.R
 import com.example.recycleappv1.common.Result
 import com.example.recycleappv1.common.gone
 import com.example.recycleappv1.common.show
@@ -14,10 +18,9 @@ import com.example.recycleappv1.data.model.WasteGuideLinesData
 import com.example.recycleappv1.databinding.FragmentWasteCatalogBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
 
 @AndroidEntryPoint
-class WasteCatalog : Fragment() {
+class WasteCatalog : Fragment(),WasteCatalogAdapter.OnItemClickedListener {
 private lateinit var _binding:FragmentWasteCatalogBinding
 private  lateinit var adapter: WasteCatalogAdapter
 private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
@@ -42,6 +45,7 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
             layoutManager = LinearLayoutManager(context)
             hasFixedSize()
         }
+
        wasteCatalogList = ArrayList()
       adapter = WasteCatalogAdapter(wasteCatalogList)
       _binding.catalogsRecyclerView.adapter = adapter
@@ -70,9 +74,11 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
                 }
                 is Result.Success<*>->{
                     _binding.progressBar.gone()
-                    _binding.catalogsRecyclerView.adapter = WasteCatalogAdapter(
+               val myRecycleViewAdapter  = WasteCatalogAdapter(
                         it.result as ArrayList<WasteGuideLinesData>
                     )
+                    myRecycleViewAdapter.onItemClickedListener =this
+                    _binding.catalogsRecyclerView.adapter = myRecycleViewAdapter
                 }
 
                 is Result.Failure->{
@@ -85,18 +91,29 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
         }
 
 }
-    // Filter the list based on the search query
-    private fun filter(query: String) {
-        val filteredList = ArrayList<WasteGuideLinesData>()
 
-        for (wasteGuideLine in wasteCatalogList) { // Assuming you have an original list
-            if (wasteGuideLine.type?.lowercase()?.contains(query.lowercase(Locale.getDefault())) == true) {
-                filteredList.add(wasteGuideLine)
-            }
-        }
 
-        adapter.setFilteredList(filteredList)
+    override fun onItemClicked(item: WasteGuideLinesData) {
+        findNavController().navigate(
+            R.id.action_nav_wasteCatalog_to_detailFragment,
+            args = bundleOf("item" to item)
+        )
     }
 
+}
+val diff_util = object : DiffUtil.ItemCallback<WasteGuideLinesData>() {
+    override fun areItemsTheSame(
+        oldItem: WasteGuideLinesData,
+        newItem: WasteGuideLinesData
+    ): Boolean {
+        return oldItem.type == newItem.type
+    }
+
+    override fun areContentsTheSame(
+        oldItem: WasteGuideLinesData,
+        newItem: WasteGuideLinesData
+    ): Boolean {
+        return oldItem == newItem
+    }
 
 }

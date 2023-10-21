@@ -3,25 +3,26 @@ package com.example.recycleappv1.ui.wastecatalog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.recycleappv1.data.model.WasteGuideLinesData
 import com.example.recycleappv1.databinding.CatalogListItemBinding
 
 class WasteCatalogAdapter(
-    var wasteGuideLinesData: ArrayList<WasteGuideLinesData>
-) : RecyclerView.Adapter<WasteCatalogAdapter.ProfileViewHolder>() {
+    private val wasteGuideLinesData: ArrayList<WasteGuideLinesData>
+) : RecyclerView.Adapter<WasteCatalogAdapter.CatalogDetailViewHolder>() {
+    var onItemClickedListener: OnItemClickedListener? = null
 
-    private var filteredWasteGuideLinesData: ArrayList<WasteGuideLinesData> = ArrayList()
-
-    init {
-        filteredWasteGuideLinesData.addAll(wasteGuideLinesData)
+    interface OnItemClickedListener {
+        fun onItemClicked(item: WasteGuideLinesData)
     }
 
-    inner class ProfileViewHolder(val binding: CatalogListItemBinding) :
-        RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
-        return ProfileViewHolder(
+    inner class CatalogDetailViewHolder(val binding: CatalogListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogDetailViewHolder {
+        return CatalogDetailViewHolder(
             CatalogListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -30,41 +31,17 @@ class WasteCatalogAdapter(
         )
     }
 
+    override fun getItemCount(): Int = wasteGuideLinesData.size
 
-
-    override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
-        val wasteInfo = filteredWasteGuideLinesData[position]
+    override fun onBindViewHolder(holder: CatalogDetailViewHolder, position: Int) {
+        val wasteInfo: WasteGuideLinesData = wasteGuideLinesData[position]
 
         holder.binding.type.text = wasteInfo.type
-        holder.binding.description.text = wasteInfo.description
-        holder.binding.guidelines.text = wasteInfo.guidelines
-        Glide.with(holder.itemView.context)
-            .load(wasteInfo.recommendedBagImage) // Replace with the actual image URL field in WasteGuideLinesData
-            .into(holder.binding.imageView4)
 
-
-
-
-
-
-
-    }
-    override fun getItemCount(): Int {
-
-        return filteredWasteGuideLinesData.size
-    }
-    fun setFilteredList(searchQuery: ArrayList<WasteGuideLinesData>) {
-        filteredWasteGuideLinesData.clear()
-
-        if (searchQuery.isEmpty()) {
-            filteredWasteGuideLinesData.addAll(wasteGuideLinesData)
-        } else {
-            val lowerCaseQuery = searchQuery[0].type?.toLowerCase() ?: ""
-            filteredWasteGuideLinesData.addAll(
-                wasteGuideLinesData.filter { it.type?.toLowerCase()!!.contains(lowerCaseQuery) }
-            )
+        holder.itemView.setOnClickListener {
+            onItemClickedListener?.onItemClicked(wasteInfo)
         }
-
-        notifyDataSetChanged()
     }
 }
+
+
