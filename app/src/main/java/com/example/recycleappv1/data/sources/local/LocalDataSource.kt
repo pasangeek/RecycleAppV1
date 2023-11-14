@@ -1,23 +1,45 @@
 package com.example.recycleappv1.data.sources.local
 
 import android.content.SharedPreferences
-import com.example.recycleappv1.data.sources.IDataSource
+
 import javax.inject.Inject
-
-class LocalDataSource @Inject constructor(private val sharePreferences: SharedPreferences) : IDataSource {
-
+/**
+ * A data source for handling local storage of reminder-related information using SharedPreferences.
+ * This class implements the [IDataSource] interface.
+ *
+ * @property sharePreferences The SharedPreferences instance for storing and retrieving data.
+ */
+class LocalDataSource @Inject constructor(private val sharePreferences: SharedPreferences)  {
+    /**
+     * Save the selected city to SharedPreferences.
+     *
+     * @param cityName The name of the city to save.
+     */
     fun saveCity(cityName: String) {
         sharePreferences.edit().putString("city", cityName).apply()
     }
 
+    /**
+     * Get the saved city from SharedPreferences.
+     *
+     * @return The name of the saved city, or null if not found.
+     */
     fun getSavedCity(): String? {
         return sharePreferences.getString("city", null)
     }
-
+    /**
+     * Save the reminder status for non-burnable items to SharedPreferences.
+     *
+     * @param status The status of the non-burnable items reminder.
+     */
     fun saveNonBurnableReminderStatus(status: Boolean) {
         sharePreferences.edit().putBoolean("nonBurnableReminder", status).apply()
     }
-
+    /**
+     * Save the reminder status for burnable items to SharedPreferences.
+     *
+     * @param status The status of the burnable items reminder.
+     */
     fun saveBurnableReminderStatus(status: Boolean) {
         sharePreferences.edit().putBoolean("BurnableReminder", status).apply()
     }

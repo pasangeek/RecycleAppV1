@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
-    private lateinit var _binding :FragmentDetailBinding
+    private lateinit var _binding: FragmentDetailBinding
     private var item: WasteGuideLinesData? = null
 
 
@@ -21,9 +21,9 @@ class DetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        val root:View =_binding.root
+        val root: View = _binding.root
 
-        return  root
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,12 +38,11 @@ class DetailFragment : Fragment() {
 
     }
 
-    private fun fetchData(){
+    private fun fetchData() {
         item?.let { item ->
-            _binding.wasteType.text=item.type
-_binding.remarks.text=item.remarks
-            _binding.guidelines.text=item.guidelines
-
+            _binding.wasteType.text = item.type
+            _binding.remarks.text = item.remarks
+            _binding.guidelines.text = item.guidelines
 
 
         }

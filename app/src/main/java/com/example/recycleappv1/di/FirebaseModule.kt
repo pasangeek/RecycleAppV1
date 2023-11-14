@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object FirebaseModule {
+    // Provides an instance of FirebaseFirestore with custom settings.
     @Provides
     @Singleton
     fun provideFireStoreInstant(): FirebaseFirestore {
@@ -29,7 +30,7 @@ object FirebaseModule {
         return db
     }
 
-
+    // Provides an instance of FirebaseStorage
     @Provides
     @Singleton
     fun provideFirebaseStorage(): FirebaseStorage{
