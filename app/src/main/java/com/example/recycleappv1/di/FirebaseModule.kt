@@ -21,9 +21,14 @@ object FirebaseModule {
         val db = FirebaseFirestore.getInstance()
         val settings = firestoreSettings {
             // Use memory cache
-            setLocalCacheSettings(memoryCacheSettings {})
+            setLocalCacheSettings(memoryCacheSettings {
+            })
             // Use persistent disk cache (default)
-            setLocalCacheSettings(persistentCacheSettings {})
+            setLocalCacheSettings(persistentCacheSettings {
+
+            })
+            // Enable Firestore persistence for offline access
+
         }
 
         db.firestoreSettings = settings
@@ -36,4 +41,10 @@ object FirebaseModule {
     fun provideFirebaseStorage(): FirebaseStorage{
         return FirebaseStorage.getInstance()
     }
+
+
+
+
 }
+
+

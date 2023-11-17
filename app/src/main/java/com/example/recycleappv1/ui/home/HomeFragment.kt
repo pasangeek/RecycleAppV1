@@ -1,6 +1,8 @@
 package com.example.recycleappv1.ui.home
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +42,8 @@ class HomeFragment : BaseFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Request notification permission if required
         requestNotificationPermission()
         _binding.lifecycleOwner = this
         _binding.homeVM = viewModel
@@ -56,14 +60,15 @@ class HomeFragment : BaseFragment(){
             hasFixedSize()
         }
         // showTodaysWasteDescription()
+        // Initialize observers to observe changes in ViewModel data
         initObservers();
+        // Set the city text using saved city information from the ViewModel
         _binding.txtCity.text = viewModel.getSavedCity()
+        // Fetch today's waste data for the saved city
         viewModel.getTodayWasteData(viewModel.getSavedCity()?:"")
 
 
     }
-
-
 
 
     private fun initObservers() {
@@ -77,13 +82,17 @@ class HomeFragment : BaseFragment(){
 
                 is Result.Success<*> -> {
                     _binding.progressBar.gone()
+                    // Set the adapter for the RecyclerView with retrieved data
                     _binding.recyclerView.adapter =
                         RecyclerItemAdapter(it.result as List<RecycleItemsData>)
+                    Log.d(TAG, "Data loaded successfully.")
                 }
 
                 is Result.Failure -> {
                     _binding.progressBar.gone()
+                    // Show a Snackbar in case of a failure with an error message
                     Snackbar.make(_binding.root, it.error, Snackbar.LENGTH_LONG).show()
+
                 }
 
             }

@@ -1,10 +1,13 @@
 package com.example.recycleappv1.data.sources
 
 interface LocationAbstract {
+    // City-related operations
     fun saveCity(cityName:String)
 
     fun getSavedCity(): String?
 
+
+    // Reminder status operations for different waste types
     fun saveNonBurnableReminderStatus(status: Boolean)
     fun saveBurnableReminderStatus(status: Boolean)
     fun saveCardBoardReminderStatus(status: Boolean)
@@ -14,7 +17,7 @@ interface LocationAbstract {
     fun PetReminderStatus(status: Boolean)
     fun savePlasticReminderStatus(status: Boolean)
 
-
+    // Retrieving reminder statuses for different waste types
     fun getNonBurnableReminderStatus() : Boolean
 
     fun getBurnableReminderStatus() : Boolean

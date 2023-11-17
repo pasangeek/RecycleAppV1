@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FirstScreen : Fragment() {
 
-    private lateinit var _binding: FragmentFirstScreenBinding
+    private var _binding: FragmentFirstScreenBinding? = null
     private val locationViewModel: LocationViewModel by viewModels()
 
     override fun onCreateView(
@@ -24,18 +24,16 @@ class FirstScreen : Fragment() {
         savedInstanceState: Bundle?
 
 
-    ): View {
+    ):  View? {
         // Inflate the layout for this fragment
         _binding = FragmentFirstScreenBinding.inflate(inflater, container, false)
-        val root: View = _binding.root
-        _binding.lifecycleOwner = this
-        _binding.vm = locationViewModel
 
-        _binding.next.setOnClickListener {
+        _binding?.lifecycleOwner = this
+        _binding?.vm = locationViewModel
+        _binding?.next?.setOnClickListener {
             navigateToThirdFragment()
-
         }
-        return root
+        return _binding?.root
 
     }
 
@@ -44,6 +42,10 @@ class FirstScreen : Fragment() {
         findNavController().navigate(R.id.action_firstScreen_to_thirdScreen2)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Nullify the binding reference to prevent memory leaks
+        _binding = null
 
-
-}
+    }
+    }

@@ -11,8 +11,6 @@ import com.example.recycleappv1.ui.reminder.notification.channelIDEmptyBottles
 import com.example.recycleappv1.ui.reminder.notification.channelIDGlass
 import com.example.recycleappv1.ui.reminder.notification.channelIDPet
 import com.example.recycleappv1.ui.reminder.notification.channelIDPlastic
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -22,11 +20,11 @@ class CoreApplication :Application(){
         super.onCreate()
 
         // Enable offline persistence for Firestore
-        val firestoreSettings = FirebaseFirestoreSettings.Builder()
+ /*       val firestoreSettings = FirebaseFirestoreSettings.Builder()
             .setPersistenceEnabled(true)
             .build()
 
-        FirebaseFirestore.getInstance().firestoreSettings = firestoreSettings
+        FirebaseFirestore.getInstance().firestoreSettings = firestoreSettings*/
 
         val channelName: CharSequence = " Non Burnable Reminder"
         val importance = NotificationManager.IMPORTANCE_HIGH

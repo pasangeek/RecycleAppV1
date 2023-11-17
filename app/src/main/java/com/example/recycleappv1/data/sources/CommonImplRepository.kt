@@ -5,12 +5,15 @@ import javax.inject.Inject
 
 class CommonImplRepository  @Inject constructor(private val localDataSource: LocalDataSource,
 ) : LocationAbstract {
-
+    // Save the selected city name
     override fun saveCity(cityName: String) {
         localDataSource.saveCity(cityName)
     }
-
+    // Retrieve the saved city name
     override fun getSavedCity() = localDataSource.getSavedCity()
+
+    // Save various reminder statuses related to different waste types
+
     override fun saveNonBurnableReminderStatus(status: Boolean) {
         localDataSource.saveNonBurnableReminderStatus(status)
     }

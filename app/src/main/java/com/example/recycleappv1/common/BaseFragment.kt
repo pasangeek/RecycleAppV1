@@ -14,7 +14,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.recycleappv1.ui.onboarding.location.LocationViewModel
 
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -30,6 +32,7 @@ import java.util.Locale
 open class BaseFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var locationRequest = LocationRequest()
+    private val viewModel: LocationViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -172,6 +175,7 @@ open class BaseFragment : Fragment() {
         Log.e("BaseFragment", "Failed to retrieve location information")
         if (!isInternetAvailable()) {
             Log.e("BaseFragment", "No internet connection")
+            viewModel.errorState.value = ErrorState.NetworkError("No internet connection available")
             // Handle the case when there is no internet connection
             Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
         } else {
@@ -184,15 +188,12 @@ open class BaseFragment : Fragment() {
     }
     private fun handleNetworkError() {
         // This function can be customized to handle the absence of internet connectivity
+        viewModel.errorState.value = ErrorState.NetworkError("No internet connection available")
         Log.e("BaseFragment", "No internet connection")
         Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
     }
 
-    private fun handleLocationError() {
-        // This function can be customized to handle location-related errors
-        Log.e("BaseFragment", "Failed to retrieve location information")
-        Toast.makeText(requireContext(), "Failed to retrieve location information", Toast.LENGTH_SHORT).show()
-    }
+
     private fun isInternetAvailable(): Boolean {
         val connectivityManager =
             requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

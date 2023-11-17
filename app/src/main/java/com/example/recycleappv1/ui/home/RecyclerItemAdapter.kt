@@ -1,5 +1,6 @@
 package com.example.recycleappv1.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -36,12 +37,19 @@ class RecyclerItemAdapter(private val data: List<RecycleItemsData>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RecycleItemsData) {
-
+            // Set the day of the week
             binding.txtDay.text = item.date?.dateToDayOfWeek()
+            Log.d(TAG, "Waste type: ${item.wasteType}, Description: ${item.description}")
             binding.txtWasteType.text = item.wasteType
+            // Set waste type and description
             binding.txtWasteDescription.text = item.description
+            // Set date in readable format
         binding.txtDate.text = item.date?.convertToReadable()
             Glide.with(itemView.context).load(item.iconUrl).into(binding.imgIcon)
         }
+    }
+
+    companion object {
+        private const val TAG = "RecyclerItemAdapter"
     }
 }
