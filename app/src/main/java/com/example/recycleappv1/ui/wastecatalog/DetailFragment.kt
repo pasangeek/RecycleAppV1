@@ -1,6 +1,7 @@
 package com.example.recycleappv1.ui.wastecatalog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Retrieve the passed arguments and populate the UI
         arguments?.let {
             val recycleWasteTemp = it.getParcelable<WasteGuideLinesData>("item")
             if (recycleWasteTemp != null) {
@@ -37,7 +39,7 @@ class DetailFragment : Fragment() {
         }
 
     }
-
+    // Populate the UI with fetched data
     private fun fetchData() {
         item?.let { item ->
             _binding.wasteType.text = item.type
@@ -46,6 +48,8 @@ class DetailFragment : Fragment() {
 
 
         }
+        // Log the data retrieval process
+        Log.d("DetailFragment", "Fetched data: $item")
 
     }
 }

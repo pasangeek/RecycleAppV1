@@ -1,5 +1,6 @@
 package com.example.recycleappv1.ui.wastecatalog
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recycleappv1.common.Result
@@ -27,6 +28,7 @@ class WasteCatalogViewModel@Inject constructor(
 
 
     fun getWasteCatalogData() {
+        Log.d("WasteCatalogViewModel", "Fetching waste catalog data...")
         responseGetWasteCatalog.postValue(Result.Loading)
         recycleItemRepo.getWasteCatalogItems(getSavedCity()?:"")
             .addOnSuccessListener { queryDocumentSnapshots ->
@@ -37,12 +39,14 @@ class WasteCatalogViewModel@Inject constructor(
                         list.add(item)
                     }
                 }
-
+                Log.d("WasteCatalogViewModel", "Waste catalog data loaded successfully")
                     responseGetWasteCatalog.postValue(Result.Success<List<WasteGuideLinesData>>(list))
                 }
             .addOnFailureListener {
                 responseGetWasteCatalog.postValue(Result.Failure("Failed data loading"))
+
             }
     }
+    // Function to retrieve the saved city from the repository
     private fun getSavedCity() = commonImplRepository.getSavedCity()
 }

@@ -14,86 +14,33 @@ import com.example.recycleappv1.ui.reminder.notification.channelIDPlastic
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class CoreApplication :Application(){
+class CoreApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
-        // Enable offline persistence for Firestore
- /*       val firestoreSettings = FirebaseFirestoreSettings.Builder()
-            .setPersistenceEnabled(true)
-            .build()
+        // Define the channel names and importance for various types of reminders
+        NotificationManager.IMPORTANCE_HIGH
 
-        FirebaseFirestore.getInstance().firestoreSettings = firestoreSettings*/
+        // Create notification channels for different types of reminders
+        createNotificationChannel("Non Burnable Reminder", channelID)
+        createNotificationChannel("Burnable Reminder", channelIDBurnable)
+        createNotificationChannel("CardBoard And Paper Reminder", channelIDCardBoard)
+        createNotificationChannel("Empty Bottles Reminder", channelIDEmptyBottles)
+        createNotificationChannel("Glass Reminder", channelIDGlass)
+        createNotificationChannel("Pet Bottles Reminder", channelIDPet)
+        createNotificationChannel("Plastic Reminder", channelIDPlastic)
+    }
 
-        val channelName: CharSequence = " Non Burnable Reminder"
-        val importance = NotificationManager.IMPORTANCE_HIGH
-
+    // Function to create a notification channel
+    private fun createNotificationChannel(channelName: String, channelId: String) {
+        // Check if the Android version supports notification channels
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelID, channelName, importance)
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-        val channelBurnable: CharSequence = " Burnable Reminder"
+            // Create a notification channel with the given name and importance
+            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
 
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelIDBurnable, channelBurnable, importance)
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-        val channelCardBoard: CharSequence = " CardBoard And Paper Reminder"
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelIDCardBoard, channelCardBoard, importance)
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-        val channelEmptyBottles: CharSequence = " Empty Bottles Reminder"
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelIDEmptyBottles, channelEmptyBottles, importance)
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-        val channelGlass: CharSequence = " Glass Reminder"
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelIDGlass, channelGlass, importance)
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-        val channelPetBottles: CharSequence = " Pet Bottles Reminder"
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelIDPet, channelPetBottles, importance)
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-        val channelPlastic: CharSequence = " Plastic Reminder"
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelIDPlastic, channelPlastic, importance)
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
+            // Get the notification manager and create the channel
+            val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
         }
     }

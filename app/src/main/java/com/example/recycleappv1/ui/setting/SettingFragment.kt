@@ -27,20 +27,20 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-
+        // Inflate the layout for this fragment
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         val root: View = _binding.root
-
+        // Set click listener for the clear button
       _binding.clear.setOnClickListener{
           showConfirmationDialog(requireContext())
-
+          // Show confirmation dialog before clearing data
 
       }
 
 
         return root
     }
-
+    // Function to delete onBoarding data from SharedPreferences
     fun deleteDataFromSharedPreferences(context: Context) {
         val sharedPreferences = context.getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -64,6 +64,7 @@ class SettingFragment : Fragment() {
             // User confirmed, delete data
             deleteDataFromSharedPreferences(context)
             restartApp(context)
+           // deleteRemindervalues(context)
         }
 
         builder.setNegativeButton("Cancel") { _, _ ->

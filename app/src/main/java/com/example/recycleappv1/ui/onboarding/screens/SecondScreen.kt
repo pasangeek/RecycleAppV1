@@ -32,28 +32,31 @@ class SecondScreen : Fragment() {
     private lateinit var _binding: FragmentSecondScreenBinding
     private val secondScreeViewModel: SecondScreeViewModel by viewModels()
     private var shutdownCountdown = 10
-
+    // ActivityResultLauncher to handle camera capture
     private val cameraLaunch =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             onCameraImageCaptured(it)
         }
-
+    // Function to handle the captured camera image
     private fun onCameraImageCaptured(it: ActivityResult?) {
         if (it?.resultCode == Activity.RESULT_OK && mPhotoUri != null) {
             _binding.progressBar.show()
             _binding.btnCamera.disable()
             secondScreeViewModel.uploadImage(mPhotoUri!!).observe(
                 viewLifecycleOwner
+                // Actions to perform on successful image capture
             ) { uploaded ->
                 _binding.progressBar.hide()
                 _binding.btnCamera.enable()
                 if (uploaded) {
+                    // Show success message and start countdown
                     requireContext().showAlert(title = "Success",
                         message = "Uploaded successfully we will add the details to the system soon. Please stay tuned with us",
                         positiveClick = {
 
                         })
                 } else {
+                    // Show failure message
                     requireContext().showAlert(title = "Failed",
                         message = "Uploading failed. Please try again",
                         positiveClick = {
@@ -64,7 +67,7 @@ class SecondScreen : Fragment() {
         }
 
     }
-
+    // Function to start the shutdown countdown
     private fun startShutdownCountdown() {
         val handler = Handler()
         val runnable = object : Runnable {
@@ -93,6 +96,7 @@ class SecondScreen : Fragment() {
             setTitle(title)
             setMessage(message)
             setPositiveButton(R.string.OK) { dialogInterface: DialogInterface, _: Int ->
+                // Start shutdown countdown on positive button click
                 startShutdownCountdown()
                 positiveClick()
             }
@@ -107,7 +111,7 @@ class SecondScreen : Fragment() {
         _binding = FragmentSecondScreenBinding.inflate(inflater, container, false)
         val root: View = _binding.root
 
-
+// Button click to initiate camera capture
         _binding.btnCamera.setOnClickListener {
             dispatchTakePictureIntent()
         }
@@ -115,7 +119,7 @@ class SecondScreen : Fragment() {
 
         return root
     }
-
+    // Function to initiate camera capture
     private fun dispatchTakePictureIntent() {
         mPhotoUri = requireContext().contentResolver.insert(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,

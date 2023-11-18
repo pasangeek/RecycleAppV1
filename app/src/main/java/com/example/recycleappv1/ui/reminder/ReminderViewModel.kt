@@ -1,5 +1,6 @@
 package com.example.recycleappv1.ui.reminder
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,20 +24,26 @@ class ReminderViewModel  @Inject constructor(
 
     val responseGetRecyclerItems = MutableLiveData<Result>()
     fun getRecyclerDataByWasteType() {
+        Log.d("ReminderViewModel", "Fetching recycling data by waste type...")
+        // Set loading state in LiveData
         responseGetRecyclerItems.postValue(Result.Loading)
+        // Retrieve recycling data by type from the repository
         recycleItemRepo.getRecyclerDataByWasteType(getSavedCity()?:"", "Non Burnable")
             .addOnSuccessListener { queryDocumentSnapshots ->
                 val list = ArrayList<RecycleItemsData>()
+                // Iterate through documents and map them to RecycleItemsData
                 queryDocumentSnapshots.documents.forEach {
                     val item = it.toObject(RecycleItemsData::class.java)
                     if (item != null) {
                         list.add(item)
                     }
 
-                }
+                } // Post success result with the loaded recycling data
                 responseGetRecyclerItems.postValue(Result.Success<List<RecycleItemsData>>(list))
+                Log.d("ReminderViewModel", "Recycling data loaded successfully")
             }.addOnFailureListener {
                 responseGetRecyclerItems.postValue(Result.Failure("Failed data loading"))
+                Log.e("ReminderViewModel", "Failed to load recycling data: $it")
             }
     }
     fun getRecyclerDataByWasteTypeBurnable() {

@@ -101,19 +101,3 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
     }
 
 }
-val diff_util = object : DiffUtil.ItemCallback<WasteGuideLinesData>() {
-    override fun areItemsTheSame(
-        oldItem: WasteGuideLinesData,
-        newItem: WasteGuideLinesData
-    ): Boolean {
-        return oldItem.type == newItem.type
-    }
-
-    override fun areContentsTheSame(
-        oldItem: WasteGuideLinesData,
-        newItem: WasteGuideLinesData
-    ): Boolean {
-        return oldItem == newItem
-    }
-
-}

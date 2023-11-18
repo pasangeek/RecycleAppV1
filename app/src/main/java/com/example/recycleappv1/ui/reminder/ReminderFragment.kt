@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ import java.util.Calendar
 @AndroidEntryPoint
 class ReminderFragment : BaseFragment() {
 
+    // Binding object for the FragmentReminder layout
     private lateinit var binding: FragmentReminderBinding
     private lateinit var pendingIntentNonBurnable: PendingIntent
     private lateinit var pendingIntentCardBoard: PendingIntent
@@ -38,7 +40,7 @@ class ReminderFragment : BaseFragment() {
     private lateinit var pendingIntentPetBottles: PendingIntent
     private lateinit var pendingIntentPlastic: PendingIntent
     private lateinit var pendingIntentBurnable: PendingIntent
-
+    // Intent objects for different types of reminders
     private lateinit var myIntent: Intent
     private lateinit var myIntentCardBoard: Intent
     private lateinit var myIntentEmptyBottles: Intent
@@ -46,13 +48,16 @@ class ReminderFragment : BaseFragment() {
     private lateinit var myIntentPetBottles: Intent
     private lateinit var myIntentPlastic: Intent
     private lateinit var myIntentBurnable: Intent
+    // AlarmManager instance
     private var alarmManager: AlarmManager? = null
-
+    // ViewModel associated with the ReminderFragment
     private val viewModel: ReminderViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Initialize the AlarmManager
         alarmManager = getSystemService(requireContext(), AlarmManager::class.java)
+        // Initialize Intents for each reminder type
         myIntent = Intent(requireContext(), NonBurnableNotification::class.java)
         myIntentBurnable= Intent(requireContext(), BurnableNotification::class.java)
         myIntentCardBoard= Intent(requireContext(), CardBoardnotification::class.java)
@@ -60,6 +65,7 @@ class ReminderFragment : BaseFragment() {
         myIntentCans= Intent(requireContext(), GlassNotification::class.java)
         myIntentPetBottles= Intent(requireContext(), PetBottlesNotification::class.java)
         myIntentPlastic= Intent(requireContext(), PlasticNotification::class.java)
+        // Create PendingIntent for each reminder type
         pendingIntentNonBurnable =
             PendingIntent.getBroadcast(requireContext(), 0, myIntent, PendingIntent.FLAG_IMMUTABLE)
         pendingIntentBurnable =
@@ -88,19 +94,27 @@ class ReminderFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+// Set the switch to reflect the saved reminder status
         binding.switchNonBurnable.isChecked = viewModel.getNonBurnableReminderStatus()
+
+        // Listen for changes in the switch state
         binding.switchNonBurnable.setOnCheckedChangeListener { _, isChecked ->
+            Log.d("ReminderFragment", "Switch state changed: $isChecked")
+            // Remove existing observers to prevent multiple observers
             viewModel.responseGetRecyclerItems.removeObservers(viewLifecycleOwner)
+            // Check if the switch is toggled on
             if (isChecked) {
+                // Observe changes in recycling items data
                 viewModel.responseGetRecyclerItems.observe(viewLifecycleOwner) { it ->
                     when (it) {
                         is Result.Loading -> {
+                            // Show progress bar when loading data
                             binding.progressBar.show()
                         }
 
                         is Result.Success<*> -> {
                             binding.progressBar.gone()
+                            // Retrieve recycling items data and set alarms
                             val items = it.result as List<RecycleItemsData>
                             items.forEach { item ->
 
@@ -110,22 +124,26 @@ class ReminderFragment : BaseFragment() {
                                 }
 
                             }
-
+                            Log.d("ReminderFragment", "Recycling data loaded successfully")
                         }
 
                         is Result.Failure -> {
+                            // Handle failure cases when retrieving data
                             binding.progressBar.gone()
+                            Log.e("ReminderFragment", "Failed to load recycling data")
                         }
 
                     }
 
-                }
+                }  // Fetch recycling data based on waste type
                 viewModel.getRecyclerDataByWasteType()
-            } else {
+            } else { // Cancel the alarm if the switch is toggled off
                 alarmManager?.cancel(pendingIntentNonBurnable)
+                Log.d("ReminderFragment", "Reminder turned off. Alarm canceled.")
             }
-
+            // Save the current switch state
             viewModel.saveNonBurnableReminderStatus(isChecked)
+            Log.d("ReminderFragment", "Switch state saved: $isChecked")
         }
 
 

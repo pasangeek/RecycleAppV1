@@ -46,6 +46,7 @@ class WasteCatalogAdapter(
         holder.bind(item)
 
     }
+
 }
 
 
