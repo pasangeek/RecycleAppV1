@@ -18,6 +18,12 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+n
+    <style name="content_style" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <style name="Theme.RecycleAppV1.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
