@@ -1,12 +1,10 @@
 package com.example.recycleappv1.di
 
-import com.example.recycleappv1.common.FirebaseStorageConstants
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.firestore.ktx.memoryCacheSettings
 import com.google.firebase.firestore.ktx.persistentCacheSettings
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,25 +14,37 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object FirebaseModule {
+    // Provides an instance of FirebaseFirestore with custom settings.
     @Provides
     @Singleton
     fun provideFireStoreInstant(): FirebaseFirestore {
         val db = FirebaseFirestore.getInstance()
         val settings = firestoreSettings {
             // Use memory cache
-            setLocalCacheSettings(memoryCacheSettings {})
+            setLocalCacheSettings(memoryCacheSettings {
+            })
             // Use persistent disk cache (default)
-            setLocalCacheSettings(persistentCacheSettings {})
+            setLocalCacheSettings(persistentCacheSettings {
+
+            })
+            // Enable Firestore persistence for offline access
+
         }
 
         db.firestoreSettings = settings
         return db
     }
 
-
-    @Singleton
+    // Provides an instance of FirebaseStorage
     @Provides
-    fun provideFirebaseStroageInstance(): StorageReference {
-        return FirebaseStorage.getInstance().getReference(FirebaseStorageConstants.ROOT_DIRECTORY)
+    @Singleton
+    fun provideFirebaseStorage(): FirebaseStorage{
+        return FirebaseStorage.getInstance()
     }
+
+
+
+
 }
+
+

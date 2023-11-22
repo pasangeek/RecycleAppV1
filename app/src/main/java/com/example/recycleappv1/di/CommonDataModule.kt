@@ -12,7 +12,13 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object CommonDataModule {
 
-
+    /**
+     * Provides a [SharedPreferences] instance named "RecycleApp" using the application context.
+     * This instance allows storing and retrieving application-specific preferences persistently.
+     *
+     * @param context The [Context] obtained from the application.
+     * @return The [SharedPreferences] instance for the "RecycleApp" with private mode.
+     */
     @Provides
     fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences("RecycleApp", Context.MODE_PRIVATE)

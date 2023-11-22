@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recycleappv1.R
 import com.example.recycleappv1.common.Result
 import com.example.recycleappv1.common.gone
 import com.example.recycleappv1.common.show
@@ -16,10 +18,9 @@ import com.example.recycleappv1.data.model.WasteGuideLinesData
 import com.example.recycleappv1.databinding.FragmentWasteCatalogBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
 
 @AndroidEntryPoint
-class WasteCatalog : Fragment() {
+class WasteCatalog : Fragment(),WasteCatalogAdapter.OnItemClickedListener {
 private lateinit var _binding:FragmentWasteCatalogBinding
 private  lateinit var adapter: WasteCatalogAdapter
 private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
@@ -44,25 +45,17 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
             layoutManager = LinearLayoutManager(context)
             hasFixedSize()
         }
-    //    wasteCatalogList = ArrayList()
-    //   adapter = WasteCatalogAdapter(wasteCatalogList)
-    //   _binding.catalogsRecyclerView.adapter = adapter
+
+       wasteCatalogList = ArrayList()
+      adapter = WasteCatalogAdapter(wasteCatalogList)
+      _binding.catalogsRecyclerView.adapter = adapter
 
         // showTodaysWasteDescription()
-      //  initObservers();
-     //   viewModel.getWasteCatalogData()
+       initObservers();
+       viewModel.getWasteCatalogData()
 
-        // Set up the search functionality using the SearchView
-       _binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filter(newText ?: "")
-                return true
-            }
-        })
+
 
     }
 
@@ -81,9 +74,11 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
                 }
                 is Result.Success<*>->{
                     _binding.progressBar.gone()
-                    _binding.catalogsRecyclerView.adapter = WasteCatalogAdapter(
+               val myRecycleViewAdapter  = WasteCatalogAdapter(
                         it.result as ArrayList<WasteGuideLinesData>
                     )
+                    myRecycleViewAdapter.onItemClickedListener =this
+                    _binding.catalogsRecyclerView.adapter = myRecycleViewAdapter
                 }
 
                 is Result.Failure->{
@@ -96,22 +91,13 @@ private  lateinit var wasteCatalogList: ArrayList<WasteGuideLinesData>
         }
 
 }
-    // Filter the list based on the search query
-    private fun filter(query: String) {
-        val filteredList = java.util.ArrayList<WasteGuideLinesData>()
-        for (i in wasteCatalogList) {
-            if (i.type?.lowercase(Locale.ROOT)?.contains(query) == true) {
-                filteredList.add(i)
-            }
-        }
-// Update the adapter with the filtered list or show a message
-        if (filteredList.isEmpty()) {
-            // Use the context from the parent activity or fragment
-            val context = requireContext() // or activityContext depending on your use case
-            Toast.makeText(context, "No Data found", Toast.LENGTH_SHORT).show()
-        } else {
-            adapter.setFilteredList(filteredList)
-        }
+
+
+    override fun onItemClicked(item: WasteGuideLinesData) {
+        findNavController().navigate(
+            R.id.action_nav_wasteCatalog_to_detailFragment,
+            args = bundleOf("item" to item)
+        )
     }
 
 }
