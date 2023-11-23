@@ -70,6 +70,10 @@ Clone the project
   git clone https://github.com/pasangeek/RecycleAppV1
 ```
 
+Offline access
+
+https://github.com/pasangeek/RecycleAppV1/assets/12561393/140945ed-5404-46c6-b223-a019799b39b9
+
 
 
 
@@ -78,7 +82,7 @@ https://github.com/pasangeek/RecycleAppV1/assets/12561393/548fa4e1-ba97-4784-ab3
 
 
     
-
+Notification Check when application closed
 https://github.com/pasangeek/RecycleAppV1/assets/12561393/a335f0fd-64dd-4216-a2d0-71d8ab50bd8b
 
 
