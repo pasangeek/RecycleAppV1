@@ -22,10 +22,21 @@ Generate personalized disposal schedules for users based on their municipality a
 ## Reminders and Notifications
 ## Timely Notifications: 
 Users receive push notifications on their devices for upcoming collection days and any alterations in the regular disposal schedule.
+Notification Check when application closed
+https://github.com/pasangeek/RecycleAppV1/assets/12561393/548fa4e1-ba97-4784-ab3e-0e525938dbe1
+
+
+    
+
+https://github.com/pasangeek/RecycleAppV1/assets/12561393/a335f0fd-64dd-4216-a2d0-71d8ab50bd8
 ## Offline Access
 ## Persistent Functionality: 
 Utilizes Firebase persistence to allow users to access previously viewed guidelines and schedules even without internet connectivity.
+Offline access
 
+
+
+https://github.com/pasangeek/RecycleAppV1/assets/12561393/8cfc19e3-e02f-41db-92cd-df309e8b6542
 ## Technologies Used
 
 Kotlin: Primary programming language for the application.
@@ -70,11 +81,7 @@ Clone the project
   git clone https://github.com/pasangeek/RecycleAppV1
 ```
 
-Offline access
 
-
-
-https://github.com/pasangeek/RecycleAppV1/assets/12561393/8cfc19e3-e02f-41db-92cd-df309e8b6542
 
 
 
