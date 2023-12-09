@@ -47,7 +47,8 @@ Firebase: Utilized for data storage, authentication, and enabling offline capabi
 
 
 
-
+Notification Check when application closed
+https://github.com/pasangeek/RecycleAppV1/assets/12561393/548fa4e1-ba97-4784-ab3e-0e525938dbe1
 
 
 
@@ -88,8 +89,7 @@ Clone the project
 
 
 
-Notification Check when application closed
-https://github.com/pasangeek/RecycleAppV1/assets/12561393/548fa4e1-ba97-4784-ab3e-0e525938dbe1
+
 
 
     
