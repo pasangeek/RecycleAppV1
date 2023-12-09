@@ -1,7 +1,7 @@
 
 # Nihon Waste Wise
 
-
+https://github.com/pasangeek/RecycleAppV1/assets/12561393/548fa4e1-ba97-4784-ab3e-0e525938dbe1
 Welcome to the Waste Management Application repository, designed to streamline waste disposal by offering detailed guidelines, personalized disposal schedules, and timely reminders for users. 
 
  
