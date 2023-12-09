@@ -35,8 +35,6 @@ Utilizes Firebase persistence to allow users to access previously viewed guideli
 Offline access
 
 
-Notification Check when application closed
-
 https://github.com/pasangeek/RecycleAppV1/assets/12561393/a335f0fd-64dd-4216-a2d0-71d8ab50bd8b
 https://github.com/pasangeek/RecycleAppV1/assets/12561393/8cfc19e3-e02f-41db-92cd-df309e8b6542
 ## Technologies Used
